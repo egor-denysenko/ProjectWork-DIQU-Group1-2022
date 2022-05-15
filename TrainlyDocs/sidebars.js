@@ -19,7 +19,7 @@ const sidebars = {
   // But you can create a sidebar manually
   tutorialSidebar: [
     {
-      'Introducion':['Introduction/Project_Brief'],
+      'Introduction':['Introduction/Group_Members','Introduction/Project_Brief'],
     },
   ],
 };
