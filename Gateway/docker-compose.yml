@@ -1,0 +1,5 @@
+version: '3.9'
+services:
+  #serialReciever:
+  redis:
+    image: redis:7.0-alpine
