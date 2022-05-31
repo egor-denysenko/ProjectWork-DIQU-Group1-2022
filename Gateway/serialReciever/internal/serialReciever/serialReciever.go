@@ -73,6 +73,4 @@ func main() {
 	test := SerialRecieverImplementation{}
 	test.RecieveSerial(test.PortOpener("COM6"))
 
-	// in quache modo ora devo parsare questo dato in modo da usarlo in qualche modo zio kentaro...
-	// non posso associare a ciascun valore una roba da scrivere con una serie di if è bruttissimo
 }
