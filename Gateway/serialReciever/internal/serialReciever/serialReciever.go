@@ -8,38 +8,40 @@ import (
 	"go.bug.st/serial"
 )
 
-const baudRate = 9600
-const numberOfDataBits = 8
-const bytesContainingInformation int = 4
-
-type SerialReciever interface {
-	PortOpener(portToOpen string) serial.Port
-	RecieveSerial(portConnection serial.Port) []byte
+type iSerialPortReader interface {
+	Read() (data []byte, err error)
+	Close() error
 }
 
-type SerialRecieverImplementation struct{}
+type SerialConnection struct {
+	iSerialPortReader    iSerialPortReader
+	serialPortConnection serial.Port
+}
 
-func (s SerialRecieverImplementation) PortOpener(portToOpen string) serial.Port {
-	port, err := serial.Open(portToOpen, &serial.Mode{
-		BaudRate: baudRate,
-		Parity:   serial.NoParity,
-		DataBits: numberOfDataBits,
-		StopBits: serial.OneStopBit,
+func NewSerialPortReader() SerialConnection {
+	port, err := serial.Open("COM7", &serial.Mode{
+		BaudRate: 9600,
+		DataBits: 8,
+		Parity:   0,
+		StopBits: 0,
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Reading on port: COM6")
-	return port
+	return SerialConnection{
+		serialPortConnection: port,
+	}
 }
 
-func (s SerialRecieverImplementation) RecieveSerial(portConnection serial.Port) []byte {
-	buff := make([]byte, bytesContainingInformation)
+func (s *SerialConnection) RecieveSerial() ([]byte, error) {
+	buff := make([]byte, 4)
 	fmt.Println("cerco")
-	n, err := portConnection.Read(buff)
+	n, err := s.serialPortConnection.Read(buff)
 	fmt.Println(n)
 	if err != nil {
 		log.Fatal(err)
+		return buff, err
 	}
 	if n == 0 {
 		fmt.Println("\nEOF")
@@ -49,28 +51,5 @@ func (s SerialRecieverImplementation) RecieveSerial(portConnection serial.Port) 
 	fmt.Printf("Buffer Recieved in index 0 %b \n", buff[0])
 	fmt.Println("Buffer Recieved ", buff)
 	fmt.Println("Buffer Recieved ", buff[:n])
-	return buff
-}
-
-/*func serialPortsRetriever() []string {
-	// Retrieve the port list
-	ports, err := serial.GetPortsList()
-	if err != nil {
-		log.Fatal(err)
-	}
-	if len(ports) == 0 {
-		log.Fatal("No serial ports found!")
-	}
-
-	// Print the list of detected ports
-	for _, port := range ports {
-		fmt.Printf("Found port: %v\n", port)
-	}
-	return ports
-}*/
-
-func main() {
-	test := SerialRecieverImplementation{}
-	test.RecieveSerial(test.PortOpener("COM6"))
-
+	return buff, nil
 }
