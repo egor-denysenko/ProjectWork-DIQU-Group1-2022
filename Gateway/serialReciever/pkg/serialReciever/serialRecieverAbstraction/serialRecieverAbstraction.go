@@ -1,4 +1,4 @@
-package serialreciever
+package serialrecieverabs
 
 import (
 	"fmt"
@@ -8,13 +8,12 @@ import (
 	"go.bug.st/serial"
 )
 
-type iSerialPortReader interface {
-	Read() (data []byte, err error)
+type ISerialPortReader interface {
+	Recieve() (data []byte, err error)
 	Close() error
 }
 
 type SerialConnection struct {
-	iSerialPortReader    iSerialPortReader
 	serialPortConnection serial.Port
 }
 
@@ -34,7 +33,7 @@ func NewSerialPortReader() SerialConnection {
 	}
 }
 
-func (s *SerialConnection) RecieveSerial() ([]byte, error) {
+func (s *SerialConnection) Recieve() ([]byte, error) {
 	buff := make([]byte, 4)
 	fmt.Println("cerco")
 	n, err := s.serialPortConnection.Read(buff)
@@ -52,4 +51,8 @@ func (s *SerialConnection) RecieveSerial() ([]byte, error) {
 	fmt.Println("Buffer Recieved ", buff)
 	fmt.Println("Buffer Recieved ", buff[:n])
 	return buff, nil
+}
+
+func (s *SerialConnection) Close() error {
+	return s.serialPortConnection.Close()
 }
