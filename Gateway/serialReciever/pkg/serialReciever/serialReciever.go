@@ -1,26 +1,21 @@
-package serialReciever
+package serialreciever
 
-import serialrecieverabs "serialReciever/pkg/serialReciever/serialRecieverAbstraction"
+import serialAccess "serialReciever/pkg/serialaccess"
 
-type iserialReciever interface {
-	Recieve() (data []byte, err error)
-	Close() error
+type SerialReciever struct {
+	serialAbs serialAccess.ISerialConnection
 }
 
-type serialReciever struct {
-	serialAbs serialrecieverabs.ISerialPortReader
-}
-
-func FactorySerialReciever(serialAbs serialrecieverabs.ISerialPortReader) *serialReciever {
-	return &serialReciever{
+func FactorySerialReciever(serialAbs serialAccess.ISerialConnection) *SerialReciever {
+	return &SerialReciever{
 		serialAbs: serialAbs,
 	}
 }
 
-func (s *serialReciever) Recieve() ([]byte, error) {
-	return s.Recieve()
+func (s *SerialReciever) Recieve() ([]byte, error) {
+	return s.serialAbs.Recieve()
 }
 
-func (s *serialReciever) Close() error {
-	return s.Close()
+func (s *SerialReciever) Close() error {
+	return s.serialAbs.Close()
 }

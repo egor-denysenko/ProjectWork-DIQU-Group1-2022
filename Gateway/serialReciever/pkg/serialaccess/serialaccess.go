@@ -1,4 +1,4 @@
-package serialrecieverabs
+package serialaccess
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"go.bug.st/serial"
 )
 
-type ISerialPortReader interface {
+type ISerialConnection interface {
 	Recieve() (data []byte, err error)
 	Close() error
 }
@@ -17,7 +17,7 @@ type SerialConnection struct {
 	serialPortConnection serial.Port
 }
 
-func NewSerialPortReader() SerialConnection {
+func NewSerialPortReader() *SerialConnection {
 	port, err := serial.Open("COM7", &serial.Mode{
 		BaudRate: 9600,
 		DataBits: 8,
@@ -28,7 +28,7 @@ func NewSerialPortReader() SerialConnection {
 		log.Fatal(err)
 	}
 	fmt.Println("Reading on port: COM6")
-	return SerialConnection{
+	return &SerialConnection{
 		serialPortConnection: port,
 	}
 }

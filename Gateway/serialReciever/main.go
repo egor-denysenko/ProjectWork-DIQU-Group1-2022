@@ -1,12 +1,15 @@
 package main
 
-import "serialReciever/pkg/serialReciever"
+import (
+	serialService "serialReciever/pkg/serialservice"
+)
 
 func main() {
 	RecieverInit()
 }
 
 func RecieverInit() {
-
-	serialReciever.NewSerialReciever()
+	serialConnection := serialService.ServiceServiceFactory()
+	serialConnection.Recieve()
+	serialConnection.Close()
 }
