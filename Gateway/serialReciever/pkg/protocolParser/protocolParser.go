@@ -16,9 +16,36 @@ var WrongGatewayCommand = errors.New("the command doesn't exist")
 
 type FormattedData struct {
 	locomotiveID uint
-	deviceID     uint8
+	vagonID      uint8
 	temperature  uint8
 	humidity     uint8
+	vagonAllarms vagonAllarms
+	vagonDoors   vagonDoors
+	vagonLights  vagonLights
+}
+
+type vagonAllarms struct {
+	doorIO         bool
+	doorB          bool
+	doorC          bool
+	temperatoreMin bool
+	temperatureMax bool
+	lights         bool
+	humidity       bool
+}
+
+type vagonDoors struct {
+	door1       bool
+	door2       bool
+	door3       bool
+	door4       bool
+	doorBath    bool
+	doorConduct bool
+}
+
+type vagonLights struct {
+	lightMode   bool
+	lightStatus bool
 }
 
 func ValidateSerialData(ctx context.Context, serialDataChan <-chan []byte) error {
@@ -43,7 +70,7 @@ func ValidateSerialData(ctx context.Context, serialDataChan <-chan []byte) error
 func parseSerialData(ctx context.Context, recievedSerial []byte) error {
 	var StagingDataStruct FormattedData
 
-	StagingDataStruct.deviceID = recievedSerial[0]
+	StagingDataStruct.vagonID = recievedSerial[0]
 	StagingDataStruct.locomotiveID = 188
 	StagingDataStruct.temperature = 30
 	StagingDataStruct.humidity = 80
