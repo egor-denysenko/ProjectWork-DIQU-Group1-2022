@@ -48,3 +48,23 @@ func TestDetermineReciever(t *testing.T) {
 		})
 	}
 }
+
+func TestDetermineCommand(t *testing.T) {
+	recieverTestCases := []struct {
+		name     string
+		mockData byte
+		want     bool
+	}{
+		{name: "Verify Correct Parsing Into Enum", mockData: 69, want: true},
+		{name: "Return Error Because The Value Is Not In The Enum", mockData: 33, want: false},
+	}
+	for _, testCase := range recieverTestCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			got, _ := DetermineCommand(testCase.mockData)
+			if got != testCase.want {
+				t.Errorf("Running Test %v: \n Expected %v want %v", testCase.name, got, testCase.want)
+			}
+		})
+	}
+
+}

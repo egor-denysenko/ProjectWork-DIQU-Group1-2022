@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	serialService "serialReciever/pkg/serialservice"
 )
 
@@ -10,6 +11,11 @@ func main() {
 
 func RecieverInit() {
 	serialConnection := serialService.ServiceServiceFactory()
-	serialConnection.Recieve()
-	serialConnection.Close()
+	recievedData, recieveErr := serialConnection.Recieve()
+	if recieveErr != nil {
+
+	}
+	ctx := context.Background()
+	ctx, ctxCancel := context.WithCancel(ctx)
+
 }
