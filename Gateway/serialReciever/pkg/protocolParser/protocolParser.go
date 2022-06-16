@@ -3,6 +3,7 @@ package protocolParser
 import (
 	"context"
 	"errors"
+	"fmt"
 )
 
 type RecieveCommand uint8
@@ -12,6 +13,7 @@ const (
 )
 
 var MessageNotForTheGateway = errors.New("message not for the gateway")
+var WrongGatewayCommand = errors.New("the command doesn't exist")
 
 type FormattedData struct {
 	locomotiveID uint
@@ -34,9 +36,11 @@ func ParseSerialData(ctx context.Context, recievedSerial []byte) error {
 	if errReciever != nil {
 		return errReciever
 	}
-
-	//commandValidity, commandToExcecute := DetermineCommand(recievedSerial[2])
-
+	errCommand, recievedCommand := DetermineCommand(recievedSerial[2])
+	if errCommand == WrongGatewayCommand {
+		return WrongGatewayCommand
+	}
+	fmt.Println(recievedCommand)
 	var StagingDataStruct FormattedData
 
 	StagingDataStruct.deviceID = recievedSerial[0]
@@ -53,11 +57,11 @@ func DetermineReciever(recieverByte uint8) error {
 	return nil
 }
 
-func DetermineCommand(commandByte uint8) (bool, RecieveCommand) {
+func DetermineCommand(commandByte uint8) (error, RecieveCommand) {
 	var parsedCommand = RecieveCommand(commandByte)
 	switch parsedCommand {
 	case RecieveData:
-		return true, parsedCommand
+		return nil, parsedCommand
 	}
-	return false, 0
+	return WrongGatewayCommand, 0
 }
