@@ -10,19 +10,19 @@ type iSerialService interface {
 	Close() error
 }
 
-type serialService struct {
+type SerialService struct {
 	service iSerialService
 }
 
-func ServiceServiceFactory() *serialService {
-	return &serialService{
-		service: serialReciever.FactorySerialReciever(serialAccess.NewSerialPortReader()),
+func ServiceServiceFactory(portToOpen string) *SerialService {
+	return &SerialService{
+		service: serialReciever.FactorySerialReciever(serialAccess.NewSerialPortReader(portToOpen)),
 	}
 }
 
-func (s *serialService) Recieve() ([]byte, error) {
+func (s *SerialService) Recieve() ([]byte, error) {
 	return s.service.Recieve()
 }
-func (s *serialService) Close() error {
+func (s *SerialService) Close() error {
 	return s.service.Close()
 }

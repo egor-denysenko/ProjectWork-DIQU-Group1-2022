@@ -2,10 +2,8 @@ package serialaccess
 
 import (
 	"fmt"
-	"log"
-	"math/bits"
-
 	"go.bug.st/serial"
+	"log"
 )
 
 type ISerialConnection interface {
@@ -17,8 +15,8 @@ type SerialConnection struct {
 	serialPortConnection serial.Port
 }
 
-func NewSerialPortReader() *SerialConnection {
-	port, err := serial.Open("COM7", &serial.Mode{
+func NewSerialPortReader(portToOpen string) *SerialConnection {
+	port, err := serial.Open(portToOpen, &serial.Mode{
 		BaudRate: 9600,
 		DataBits: 8,
 		Parity:   0,
@@ -27,7 +25,7 @@ func NewSerialPortReader() *SerialConnection {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Reading on port: COM6")
+	fmt.Println("Reading on port:", portToOpen)
 	return &SerialConnection{
 		serialPortConnection: port,
 	}
@@ -46,10 +44,6 @@ func (s *SerialConnection) Recieve() ([]byte, error) {
 		fmt.Println("\nEOF")
 		//	break
 	}
-	fmt.Println("bits in 0 buffer", bits.OnesCount(uint(buff[0])))
-	fmt.Printf("Buffer Recieved in index 0 %b \n", buff[0])
-	fmt.Println("Buffer Recieved ", buff)
-	fmt.Println("Buffer Recieved ", buff[:n])
 	return buff, nil
 }
 

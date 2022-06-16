@@ -21,7 +21,8 @@ type FormattedData struct {
 	humidity     uint8
 }
 
-func ValidateSerialData(ctx context.Context, recievedSerial []byte) error {
+func ValidateSerialData(ctx context.Context, serialDataChan <-chan []byte) error {
+	recievedSerial := <-serialDataChan
 	errReciever := determineReciever(recievedSerial[1])
 	if errReciever != nil {
 		return errReciever

@@ -2,20 +2,26 @@ package main
 
 import (
 	"context"
+	"log"
+	"serialReciever/pkg/protocolParser"
 	serialService "serialReciever/pkg/serialservice"
 )
 
 func main() {
-	RecieverInit()
-}
+	serialReaderInstance := RecieverInit()
 
-func RecieverInit() {
-	serialConnection := serialService.ServiceServiceFactory()
-	recievedData, recieveErr := serialConnection.Recieve()
+	serialDataChan := make(chan []byte)
+
+	recievedData, recieveErr := serialReaderInstance.Recieve()
 	if recieveErr != nil {
-
+		log.Fatalln(recieveErr)
 	}
+	serialDataChan <- recievedData
 	ctx := context.Background()
 	ctx, ctxCancel := context.WithCancel(ctx)
+	protocolParser.ValidateSerialData(ctx, serialDataChan)
+}
 
+func RecieverInit() *serialService.SerialService {
+	return serialService.ServiceServiceFactory("COM7")
 }
