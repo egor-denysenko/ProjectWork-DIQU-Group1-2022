@@ -4,32 +4,6 @@ import (
 	"testing"
 )
 
-/*func TestParseSerialData(t *testing.T) {
-	serialParserTests := []struct{
-		name       string
-		mockData []byte
-		want       []byte
-	}
-	for _,testCase := range serialParserTests{
-		t.Run(testCase.name,func(t *testing.T){
-			got,_ := ParseSerialData(testCase.mockData)
-		})
-	}
-}
-
-func TestParseSerialDataErr(t *testing.T) {
-	serialParserTests := []struct{
-		name       string
-		mockData []byte
-		want       error
-	}
-	for _,testCase := range serialParserTests{
-		t.Run(testCase.name,func(t *testing.T){
-			_,err := ParseSerialData(testCase.mockData)
-		})
-	}
-}*/
-
 func TestDetermineReciever(t *testing.T) {
 	recieverTestCases := []struct {
 		name     string
@@ -41,7 +15,7 @@ func TestDetermineReciever(t *testing.T) {
 	}
 	for _, testCase := range recieverTestCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			got := DetermineReciever(testCase.mockData)
+			got := determineReciever(testCase.mockData)
 			if got != testCase.want {
 				t.Errorf("Running Test %v: \n Expected %v want %v", testCase.name, got, testCase.want)
 			}
@@ -60,11 +34,10 @@ func TestDetermineCommand(t *testing.T) {
 	}
 	for _, testCase := range recieverTestCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			got, _ := DetermineCommand(testCase.mockData)
+			got, _ := determineCommand(testCase.mockData)
 			if got != testCase.want {
 				t.Errorf("Running Test %v: \n Expected %v want %v", testCase.name, got, testCase.want)
 			}
 		})
 	}
-
 }

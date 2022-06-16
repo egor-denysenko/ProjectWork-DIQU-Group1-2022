@@ -3,7 +3,6 @@ package protocolParser
 import (
 	"context"
 	"errors"
-	"fmt"
 )
 
 type RecieveCommand uint8
@@ -20,36 +19,38 @@ type FormattedData struct {
 	deviceID     uint8
 	temperature  uint8
 	humidity     uint8
-	vagonStatus  VagonStatus
-	vagonAlarms  VagonAlarms
 }
 
-type VagonAlarms struct {
-}
-type VagonStatus struct {
-	withBathroom bool
-}
-
-//Parse known bytes in the FromattedData struct and call other functions that will analyze each bits for specific bytes
-func ParseSerialData(ctx context.Context, recievedSerial []byte) error {
-	errReciever := DetermineReciever(recievedSerial[1])
+func ValidateSerialData(ctx context.Context, recievedSerial []byte) error {
+	errReciever := determineReciever(recievedSerial[1])
 	if errReciever != nil {
 		return errReciever
 	}
-	errCommand, recievedCommand := DetermineCommand(recievedSerial[2])
+	errCommand, recievedCommand := determineCommand(recievedSerial[2])
 	if errCommand == WrongGatewayCommand {
 		return WrongGatewayCommand
 	}
-	fmt.Println(recievedCommand)
+	switch recievedCommand {
+	case RecieveData:
+		return parseSerialData(ctx, recievedSerial)
+	default:
+		return WrongGatewayCommand
+	}
+}
+
+//Parse known bytes in the FromattedData struct and call other functions that will analyze each bits for specific bytes
+func parseSerialData(ctx context.Context, recievedSerial []byte) error {
 	var StagingDataStruct FormattedData
 
 	StagingDataStruct.deviceID = recievedSerial[0]
 	StagingDataStruct.locomotiveID = 188
+	StagingDataStruct.temperature = 30
+	StagingDataStruct.humidity = 80
 	//testChannel <- json.Marshal(StagingDataStruct)
 	return nil
 }
 
-func DetermineReciever(recieverByte uint8) error {
+func determineReciever(recieverByte uint8) error {
 	var gatewayId uint8 = 254
 	if recieverByte != gatewayId {
 		return MessageNotForTheGateway
@@ -57,7 +58,7 @@ func DetermineReciever(recieverByte uint8) error {
 	return nil
 }
 
-func DetermineCommand(commandByte uint8) (error, RecieveCommand) {
+func determineCommand(commandByte uint8) (error, RecieveCommand) {
 	var parsedCommand = RecieveCommand(commandByte)
 	switch parsedCommand {
 	case RecieveData:
