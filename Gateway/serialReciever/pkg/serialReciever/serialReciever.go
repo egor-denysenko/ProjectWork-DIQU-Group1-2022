@@ -1,6 +1,9 @@
 package serialreciever
 
-import serialAccess "serialReciever/pkg/serialaccess"
+import (
+	"golang.org/x/net/context"
+	serialAccess "serialReciever/pkg/serialaccess"
+)
 
 type SerialReciever struct {
 	serialAbs serialAccess.ISerialConnection
@@ -12,8 +15,8 @@ func FactorySerialReciever(serialAbs serialAccess.ISerialConnection) *SerialReci
 	}
 }
 
-func (s *SerialReciever) Recieve() ([]byte, error) {
-	return s.serialAbs.Recieve()
+func (s *SerialReciever) Recieve(ctx context.Context, out chan<- []byte) {
+	s.serialAbs.Recieve(ctx, out)
 }
 
 func (s *SerialReciever) Close() error {

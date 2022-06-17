@@ -1,8 +1,43 @@
 package protocolParser
 
 import (
+	"context"
 	"testing"
 )
+
+func TestValidateSerialData(t *testing.T) {
+	validationTestCases := []struct {
+		name                 string
+		mockDataChannel      chan []byte
+		mockRecievingChannel chan []byte
+		mockData             []byte
+		want                 FormattedData
+	}{
+		{
+			name:                 "Test Value Reciever Is Uncorrect",
+			mockDataChannel:      make(chan []byte),
+			mockRecievingChannel: make(chan []byte),
+			mockData:             []byte{31, 254, 69},
+			want: FormattedData{
+				locomotiveID: 0,
+				vagonID:      31,
+				temperature:  30,
+				humidity:     80,
+				vagonAllarms: vagonAllarms{},
+				vagonDoors:   vagonDoors{},
+				vagonLights:  vagonLights{},
+			},
+		},
+	}
+	for _, testCases := range validationTestCases {
+		t.Run(testCases.name, func(t *testing.T) {
+			ctx := context.Background()
+			ctx, cancelCtx := context.WithCancel(ctx)
+			defer cancelCtx()
+			go ValidateSerialData(ctx, testCases.mockRecievingChannel, testCases.mockDataChannel)
+		})
+	}
+}
 
 func TestDetermineReciever(t *testing.T) {
 	recieverTestCases := []struct {

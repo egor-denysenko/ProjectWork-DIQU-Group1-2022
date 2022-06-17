@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/go-redis/redis/v8 v8.11.5
 	go.bug.st/serial v1.3.5
+	golang.org/x/net v0.0.0-20210428140749-89ef3d95e781
 )
 
 require (

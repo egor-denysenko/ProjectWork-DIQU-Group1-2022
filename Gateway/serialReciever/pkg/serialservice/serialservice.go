@@ -1,12 +1,13 @@
 package serialservice
 
 import (
+	"context"
 	serialAccess "serialReciever/pkg/serialaccess"
 	serialReciever "serialReciever/pkg/serialreciever"
 )
 
 type iSerialService interface {
-	Recieve() (data []byte, err error)
+	Recieve(ctx context.Context, out chan<- []byte)
 	Close() error
 }
 
@@ -20,8 +21,8 @@ func ServiceServiceFactory(portToOpen string) *SerialService {
 	}
 }
 
-func (s *SerialService) Recieve() ([]byte, error) {
-	return s.service.Recieve()
+func (s *SerialService) Recieve(ctx context.Context, out chan<- []byte) {
+	s.service.Recieve(ctx, out)
 }
 func (s *SerialService) Close() error {
 	return s.service.Close()

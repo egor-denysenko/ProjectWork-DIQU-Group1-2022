@@ -1,13 +1,15 @@
 package serialaccess
 
 import (
+	"context"
 	"fmt"
-	"go.bug.st/serial"
 	"log"
+
+	"go.bug.st/serial"
 )
 
 type ISerialConnection interface {
-	Recieve() (data []byte, err error)
+	Recieve(ctx context.Context, out chan<- []byte)
 	Close() error
 }
 
@@ -31,22 +33,21 @@ func NewSerialPortReader(portToOpen string) *SerialConnection {
 	}
 }
 
-func (s *SerialConnection) Recieve() ([]byte, error) {
-	buff := make([]byte, 4)
-	fmt.Println("cerco")
-	n, err := s.serialPortConnection.Read(buff)
-	fmt.Println(n)
-	if err != nil {
-		log.Fatal(err)
-		return buff, err
+func (s *SerialConnection) Recieve(ctx context.Context, out chan<- []byte) {
+	buff := make([]byte, 7)
+	for {
+		n, err := s.serialPortConnection.Read(buff)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if n == 0 {
+			fmt.Println("\nEOF")
+			break
+		}
+		fmt.Printf("%v", string(buff[:n]))
+		out <- buff
 	}
-	if n == 0 {
-		fmt.Println("\nEOF")
-		//	break
-	}
-	return buff, nil
 }
-
 func (s *SerialConnection) Close() error {
 	return s.serialPortConnection.Close()
 }
