@@ -1,9 +1,9 @@
 package queueservice
 
 import (
+	"cloudSender/pkg/queueservice/queueaccess"
+	"cloudSender/pkg/queueservice/queuelogic"
 	"context"
-	"serialReciever/pkg/queueservice/queueaccess"
-	"serialReciever/pkg/queueservice/queuelogic"
 )
 
 type ConsumerService queuelogic.QueueBusinnessLogic
@@ -12,12 +12,12 @@ type QueueService struct {
 	service *queuelogic.QueueBusinnessLogic
 }
 
-func QueueServiceFactory() *QueueService {
+func FactoryQueueService() *QueueService {
 	return &QueueService{
 		service: queuelogic.NewQueue(queueaccess.NewMessageQueue()),
 	}
 }
 
-func (q *QueueService) Enqueue(ctx context.Context, key string, data []byte) error {
-	return q.service.Enqueue(ctx, key, data)
+func (q *QueueService) Dequeue(ctx context.Context, key string) []byte {
+	return q.service.Dequeue(ctx, key)
 }

@@ -28,3 +28,11 @@ func Connect() *redis.Client {
 	})
 	return rdb
 }
+
+func (v *VagonMessageQueue) Dequeue(ctx context.Context, key string) []byte {
+	data, err := v.queueConnection.RPop(ctx, key).Result()
+	if err != nil {
+		return nil
+	}
+	return []byte(data)
+}

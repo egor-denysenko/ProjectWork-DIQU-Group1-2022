@@ -5,7 +5,7 @@ import (
 )
 
 type ITrainQueue interface {
-	Enqueue(ctx context.Context, key string, data []byte) error
+	Dequeue(ctx context.Context, key string) []byte
 }
 type QueueBusinnessLogic struct {
 	queueAbs ITrainQueue
@@ -17,7 +17,10 @@ func NewQueue(queueaccess ITrainQueue) *QueueBusinnessLogic {
 	}
 }
 
-func (q *QueueBusinnessLogic) Enqueue(ctx context.Context, key string, data []byte) error {
-	q.queueAbs.Enqueue(ctx, key, data)
+func (q *QueueBusinnessLogic) Dequeue(ctx context.Context, key string) []byte {
+	err := q.queueAbs.Dequeue(ctx, key)
+	if err != nil {
+		return err
+	}
 	return nil
 }
