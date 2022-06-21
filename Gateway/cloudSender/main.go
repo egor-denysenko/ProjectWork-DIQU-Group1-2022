@@ -13,4 +13,6 @@ func main() {
 	data := redisConnection.Dequeue(ctx, "test")
 	fmt.Println(string(data))
 	cloudSender := mqttservice.FactoryMqttService()
+	cloudSender.Connect()
+	cloudSender.Pubblish("message", "test", 0)
 }
