@@ -17,6 +17,10 @@ func NewMessageQueue() *VagonMessageQueue {
 }
 
 func (v *VagonMessageQueue) Enqueue(ctx context.Context, key string, message []byte) error {
+	_, err := v.queueConnection.RPush(ctx, key, message).Result()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

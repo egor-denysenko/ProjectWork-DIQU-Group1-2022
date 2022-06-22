@@ -5,6 +5,7 @@ import (
 	"cloudSender/pkg/queueservice"
 	"context"
 	"fmt"
+	"log"
 )
 
 func main() {
@@ -13,6 +14,12 @@ func main() {
 	data := redisConnection.Dequeue(ctx, "test")
 	fmt.Println(string(data))
 	cloudSender := mqttservice.FactoryMqttService()
-	cloudSender.Connect()
+	connectionErr := cloudSender.Connect()
+	if connectionErr != nil {
+		log.Fatalln("Connection error to MQTT broker")
+	}
 	cloudSender.Pubblish("message", "test", 0)
+	if connectionErr != nil {
+		log.Println("Pubblish Unsuccessfull Retrying")
+	}
 }

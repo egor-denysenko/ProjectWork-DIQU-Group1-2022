@@ -21,3 +21,7 @@ func FactoryQueueService() *QueueService {
 func (q *QueueService) Dequeue(ctx context.Context, key string) []byte {
 	return q.service.Dequeue(ctx, key)
 }
+
+func (q *QueueService) Enqueue(ctx context.Context, key string, message []byte) error {
+	return q.service.Enqueue(ctx, key, message)
+}
