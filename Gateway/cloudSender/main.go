@@ -4,22 +4,34 @@ import (
 	"cloudSender/pkg/mqttservice"
 	"cloudSender/pkg/queueservice"
 	"context"
-	"fmt"
 	"log"
 )
 
 func main() {
 	ctx := context.Background()
 	redisConnection := queueservice.FactoryQueueService()
-	data := redisConnection.Dequeue(ctx, "test")
-	fmt.Println(string(data))
 	cloudSender := mqttservice.FactoryMqttService()
 	connectionErr := cloudSender.Connect()
-	if connectionErr != nil {
-		log.Fatalln("Connection error to MQTT broker")
+
+	for {
+		data := EnqueueFromQueue(ctx, redisConnection)
+
+		if connectionErr != nil {
+			log.Fatalln("Connection error to MQTT broker")
+		}
+
+		cloudSenderErr := cloudSender.Pubblish("trainly/0/0/status", data, 0)
+		if cloudSenderErr != nil {
+			log.Println("Pubblish Unsuccessfull Retrying")
+			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte("test"))
+			if enqueueErr != nil {
+				log.Fatalln("can't enqueue not sent message")
+			}
+		}
+
 	}
-	cloudSender.Pubblish("message", "test", 0)
-	if connectionErr != nil {
-		log.Println("Pubblish Unsuccessfull Retrying")
-	}
+}
+
+func EnqueueFromQueue(ctx context.Context, service *queueservice.QueueService) []byte {
+	return service.Dequeue(ctx, "test")
 }

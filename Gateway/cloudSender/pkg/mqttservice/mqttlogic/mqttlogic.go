@@ -2,7 +2,7 @@ package mqttlogic
 
 type IMqttLogic interface {
 	Connect() error
-	Pubblish(topic, message string, qos uint8) error
+	Pubblish(topic string, message []byte, qos uint8) error
 }
 
 type MqttPubblishOptions struct {
@@ -19,6 +19,6 @@ func FactoryMqttLogic(mqttAccess IMqttLogic) *MqttLogic {
 func (m *MqttLogic) Connect() error {
 	return m.mqttAbs.Connect()
 }
-func (m *MqttLogic) Pubblish(topic, message string, qos uint8) error {
+func (m *MqttLogic) Pubblish(topic string, message []byte, qos uint8) error {
 	return m.mqttAbs.Pubblish(topic, message, qos)
 }

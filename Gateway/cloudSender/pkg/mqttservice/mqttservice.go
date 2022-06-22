@@ -16,7 +16,6 @@ func FactoryMqttService() *MqttService {
 func (m *MqttService) Connect() error {
 	return m.service.Connect()
 }
-func (m *MqttService) Pubblish(topic, message string, qos uint8) error {
+func (m *MqttService) Pubblish(topic string, message []byte, qos uint8) error {
 	return m.service.Pubblish(topic, message, qos)
-
 }

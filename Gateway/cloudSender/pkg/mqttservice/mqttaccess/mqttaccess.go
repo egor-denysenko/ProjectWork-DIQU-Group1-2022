@@ -58,12 +58,12 @@ func (m *MqttClient) Connect() error {
 	return nil
 }
 
-func (m *MqttClient) Pubblish(topic, message string, qos uint8) error {
+func (m *MqttClient) Pubblish(topic string, message []byte, qos uint8) error {
 	packet := &mqtt.Publish{
 		Topic:   topic,
 		QoS:     qos,
 		Retain:  false,
-		Payload: []byte(message),
+		Payload: message,
 	}
 	_, err := m.mqttInstance.Publish(context.Background(), packet)
 	if err != nil {
