@@ -1,42 +1,65 @@
 package protocolParser
 
 import (
-	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"reflect"
 	"testing"
 )
 
 func TestValidateSerialData(t *testing.T) {
-	validationTestCases := []struct {
-		name                 string
-		mockDataChannel      chan []byte
-		mockRecievingChannel chan []byte
-		mockData             []byte
-		want                 FormattedData
-	}{
-		{
-			name:                 "Test Value Reciever Is Uncorrect",
-			mockDataChannel:      make(chan []byte),
-			mockRecievingChannel: make(chan []byte),
-			mockData:             []byte{31, 254, 69},
-			want: FormattedData{
-				locomotiveID: 0,
-				vagonID:      31,
-				temperature:  30,
-				humidity:     80,
-				vagonAllarms: vagonAllarms{},
-				vagonDoors:   vagonDoors{},
-				vagonLights:  vagonLights{},
+	t.Run("test halal", func(t *testing.T) {
+		mockDataChannel := make(chan []byte)
+		mockRecievingChannel := make(chan []byte)
+		mockData := []byte{31, 254, 69}
+		desiredStruct := FormattedData{
+			LocomotiveID: 188,
+			VagonID:      31,
+			Temperature:  30,
+			Humidity:     80,
+			VagonAllarms: VagonAllarms{
+				DoorIO:         false,
+				DoorB:          false,
+				DoorC:          false,
+				TemperatoreMin: false,
+				TemperatureMax: false,
+				Lights:         false,
+				Humidity:       false,
 			},
-		},
-	}
-	for _, testCases := range validationTestCases {
-		t.Run(testCases.name, func(t *testing.T) {
-			ctx := context.Background()
-			ctx, cancelCtx := context.WithCancel(ctx)
-			defer cancelCtx()
-			go ValidateSerialData(ctx, testCases.mockRecievingChannel, testCases.mockDataChannel)
-		})
-	}
+			VagonDoors: VagonDoors{
+				Door1:       false,
+				Door2:       false,
+				Door3:       false,
+				Door4:       false,
+				DoorBath:    false,
+				DoorConduct: false,
+			},
+			VagonLights: VagonLights{
+				LightMode:   false,
+				LightStatus: false,
+			},
+		}
+		go func() {
+			mockRecievingChannel <- mockData
+			ValidateSerialData(mockRecievingChannel, mockDataChannel)
+		}()
+		got := <-mockRecievingChannel
+		t.Log(string(got))
+		var jsonToTest FormattedData
+		err := json.Unmarshal(got, &jsonToTest)
+		if err != nil {
+			t.Log(err)
+			t.Fail()
+		}
+		t.Log("json to test")
+		t.Log(jsonToTest)
+		log.Println("now getting data from channels")
+		fmt.Println(desiredStruct)
+		if !reflect.DeepEqual(desiredStruct, jsonToTest) {
+			t.Errorf("error on serial validation")
+		}
+	})
 }
 
 func TestDetermineReciever(t *testing.T) {

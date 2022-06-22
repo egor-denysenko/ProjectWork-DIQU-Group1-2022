@@ -1,9 +1,9 @@
 package protocolParser
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
+	"log"
 )
 
 type RecieveCommand uint8
@@ -16,67 +16,95 @@ var MessageNotForTheGateway = errors.New("message not for the gateway")
 var WrongGatewayCommand = errors.New("the command doesn't exist")
 
 type FormattedData struct {
-	locomotiveID uint
-	vagonID      uint8
-	temperature  uint8
-	humidity     uint8
-	vagonAllarms vagonAllarms
-	vagonDoors   vagonDoors
-	vagonLights  vagonLights
+	LocomotiveID uint
+	VagonID      uint8
+	Temperature  uint8
+	Humidity     uint8
+	VagonAllarms VagonAllarms
+	VagonDoors   VagonDoors
+	VagonLights  VagonLights
 }
 
-type vagonAllarms struct {
-	doorIO         bool
-	doorB          bool
-	doorC          bool
-	temperatoreMin bool
-	temperatureMax bool
-	lights         bool
-	humidity       bool
+type VagonAllarms struct {
+	DoorIO         bool
+	DoorB          bool
+	DoorC          bool
+	TemperatoreMin bool
+	TemperatureMax bool
+	Lights         bool
+	Humidity       bool
 }
 
-type vagonDoors struct {
-	door1       bool
-	door2       bool
-	door3       bool
-	door4       bool
-	doorBath    bool
-	doorConduct bool
+type VagonDoors struct {
+	Door1       bool
+	Door2       bool
+	Door3       bool
+	Door4       bool
+	DoorBath    bool
+	DoorConduct bool
 }
 
-type vagonLights struct {
-	lightMode   bool
-	lightStatus bool
+type VagonLights struct {
+	LightMode   bool
+	LightStatus bool
 }
 
-func ValidateSerialData(ctx context.Context, serialDataChan <-chan []byte, parsedData chan<- []byte) {
+func ValidateSerialData(serialDataChan <-chan []byte, parsedDataChan chan<- []byte) {
 	recievedSerial := <-serialDataChan
-	errReciever := determineReciever(recievedSerial[1])
+	log.Print(recievedSerial)
+	log.Print("recieved serial")
+	errReciever := determineReciever(recievedSerial[0])
+	log.Printf("errReciever %v", errReciever)
 	if errReciever != nil {
-		parsedData <- nil
+		parsedDataChan <- nil
 	}
 	errCommand, recievedCommand := determineCommand(recievedSerial[2])
+	log.Printf("errCommand %v", errCommand)
 	if errCommand == WrongGatewayCommand {
-		parsedData <- nil
+		parsedDataChan <- nil
 	}
 	switch recievedCommand {
 	case RecieveData:
-		parsedData <- parseSerialData(ctx, recievedSerial)
-	default:
-		parsedData <- nil
+		parsedDataResult := parseSerialData(recievedSerial)
+		parsedDataChan <- parsedDataResult
 	}
 }
 
 //Parse known bytes in the FromattedData struct and call other functions that will analyze each bits for specific bytes
-func parseSerialData(ctx context.Context, recievedSerial []byte) []byte {
-	var StagingDataStruct FormattedData
+func parseSerialData(recievedSerial []byte) []byte {
+	StagingDataStruct := FormattedData{}
+	//var StagingDataStruct FormattedData
 
-	StagingDataStruct.vagonID = recievedSerial[0]
-	StagingDataStruct.locomotiveID = 188
-	StagingDataStruct.temperature = 30
-	StagingDataStruct.humidity = 80
+	StagingDataStruct.VagonID = recievedSerial[1]
+	log.Println(StagingDataStruct.VagonID)
+	StagingDataStruct.LocomotiveID = 188
+	StagingDataStruct.Temperature = 30
+	StagingDataStruct.Humidity = 80
+	StagingDataStruct.VagonAllarms = VagonAllarms{
+		DoorIO:         false,
+		DoorB:          false,
+		DoorC:          false,
+		TemperatoreMin: false,
+		TemperatureMax: false,
+		Lights:         false,
+		Humidity:       false,
+	}
+	StagingDataStruct.VagonDoors = VagonDoors{
+		Door1:       false,
+		Door2:       false,
+		Door3:       false,
+		Door4:       false,
+		DoorBath:    false,
+		DoorConduct: false,
+	}
+	StagingDataStruct.VagonLights = VagonLights{
+		LightMode:   false,
+		LightStatus: false,
+	}
+	log.Println(StagingDataStruct)
 	jsonData, err := json.Marshal(StagingDataStruct)
 	if err != nil {
+		log.Fatalln(err)
 		return nil
 	}
 	return jsonData

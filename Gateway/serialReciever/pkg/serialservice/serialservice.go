@@ -2,8 +2,8 @@ package serialservice
 
 import (
 	"context"
-	serialAccess "serialReciever/pkg/serialaccess"
-	serialReciever "serialReciever/pkg/serialreciever"
+	serialAccess "serialReciever/pkg/serialservice/serialaccess"
+	serialReciever "serialReciever/pkg/serialservice/serialreciever"
 )
 
 type iSerialService interface {

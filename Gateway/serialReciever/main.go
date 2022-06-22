@@ -2,34 +2,27 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"serialReciever/pkg/protocolParser"
 	serialService "serialReciever/pkg/serialservice"
-	"time"
 )
 
 func main() {
 	serialReaderInstance := RecieverInit()
-
-	serialDataChan := make(chan []byte, 10)
 	ctx := context.Background()
-	ctx, ctxCancel := context.WithCancel(ctx)
-	serialReaderInstance.Recieve(ctx, serialDataChan)
+	serialDataChan := make(chan []byte, 10)
+	//parsedDataChan := make(chan []byte, 10)
+	go serialReaderInstance.Recieve(ctx, serialDataChan)
+	//go protocolParser.ValidateSerialData(serialDataChan, parsedDataChan)
 
-	go protocolParser.ValidateSerialData(ctx, serialDataChan)
-
-	select {
-	case <-time.After(500 * time.Millisecond):
-		fmt.Println("done")
-	case <-ctx.Done():
-		log.Println("context done")
-		ctxCancel()
-		break
-	case <-serialDataChan:
-		log.Println("ricevuto serial")
-		protocolParser.ValidateSerialData(ctx, serialDataChan)
-		log.Println(err)
+	for {
+		select {
+		case <-ctx.Done():
+			log.Println("context done")
+			break
+		case <-serialDataChan:
+			//data := <-serialDataChan
+			//protocolParser.ValidateSerialData(serialDataChan, parsedDataChan)
+		}
 	}
 }
 

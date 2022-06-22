@@ -2,7 +2,7 @@ package serialreciever
 
 import (
 	"golang.org/x/net/context"
-	serialAccess "serialReciever/pkg/serialaccess"
+	serialAccess "serialReciever/pkg/serialservice/serialaccess"
 )
 
 type SerialReciever struct {
