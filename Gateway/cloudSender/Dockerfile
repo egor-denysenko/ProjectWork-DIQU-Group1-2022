@@ -1,11 +1,12 @@
 # syntax=docker/dockerfile:1
 FROM golang:1.18-alpine AS builder
 WORKDIR /go/src/
-COPY . ./
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+COPY . .
+RUN mkdir build
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm go build -a -installsuffix cgo -o ./build
 
-FROM scratch
+FROM arm32v7/alpine:3.16
 WORKDIR /cmd/
 # getting the compiled go excecutable from the builder stage container
-COPY --from=builder /go/./
-CMD ["./app"]
+COPY --from=builder /go/src/build .
+CMD ["./cloudSender"]
