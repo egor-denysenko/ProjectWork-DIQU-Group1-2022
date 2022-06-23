@@ -12,9 +12,11 @@ func main() {
 	redisConnection := queueservice.FactoryQueueService()
 	cloudSender := mqttservice.FactoryMqttService()
 	connectionErr := cloudSender.Connect()
-
 	for {
-		data := EnqueueFromQueue(ctx, redisConnection)
+		data, err := DequeueFromQueue(ctx, redisConnection)
+		if err != nil {
+			log.Fatalf("error redis o dato nullo %v", err)
+		}
 
 		if connectionErr != nil {
 			log.Fatalln("Connection error to MQTT broker")
@@ -28,10 +30,9 @@ func main() {
 				log.Fatalln("can't enqueue not sent message")
 			}
 		}
-
 	}
 }
 
-func EnqueueFromQueue(ctx context.Context, service *queueservice.QueueService) []byte {
+func DequeueFromQueue(ctx context.Context, service *queueservice.QueueService) ([]byte, error) {
 	return service.Dequeue(ctx, "test")
 }

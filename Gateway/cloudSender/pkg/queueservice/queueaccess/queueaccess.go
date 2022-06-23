@@ -2,6 +2,7 @@ package queueaccess
 
 import (
 	"context"
+	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -26,17 +27,17 @@ func (v *VagonMessageQueue) Enqueue(ctx context.Context, key string, message []b
 
 func Connect() *redis.Client {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
 	return rdb
 }
 
-func (v *VagonMessageQueue) Dequeue(ctx context.Context, key string) []byte {
-	data, err := v.queueConnection.RPop(ctx, key).Result()
+func (v *VagonMessageQueue) Dequeue(ctx context.Context, key string) ([]byte, error) {
+	data, err := v.queueConnection.BRPop(ctx, 30*time.Second, key).Result()
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return []byte(data)
+	return []byte(data[1]), nil
 }
