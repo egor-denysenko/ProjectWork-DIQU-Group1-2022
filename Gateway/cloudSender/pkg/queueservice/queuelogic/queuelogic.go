@@ -5,6 +5,7 @@ import (
 )
 
 type ITrainQueue interface {
+	Connect() error
 	Dequeue(ctx context.Context, key string) ([]byte, error)
 	Enqueue(ctx context.Context, key string, message []byte) error
 }
@@ -16,6 +17,10 @@ func NewQueue(queueaccess ITrainQueue) *QueueBusinnessLogic {
 	return &QueueBusinnessLogic{
 		queueAbs: queueaccess,
 	}
+}
+
+func (q *QueueBusinnessLogic) Connect() error {
+	return q.queueAbs.Connect()
 }
 
 func (q *QueueBusinnessLogic) Dequeue(ctx context.Context, key string) ([]byte, error) {

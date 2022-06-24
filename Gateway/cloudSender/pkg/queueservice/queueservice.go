@@ -18,6 +18,9 @@ func FactoryQueueService() *QueueService {
 	}
 }
 
+func (q *QueueService) Connect() error {
+	return q.service.Connect()
+}
 func (q *QueueService) Dequeue(ctx context.Context, key string) ([]byte, error) {
 	return q.service.Dequeue(ctx, key)
 }
