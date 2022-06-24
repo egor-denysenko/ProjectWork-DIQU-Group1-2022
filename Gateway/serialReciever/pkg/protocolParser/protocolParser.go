@@ -51,22 +51,20 @@ type VagonLights struct {
 
 func ValidateSerialData(serialDataChan <-chan []byte, parsedDataChan chan<- []byte) {
 	recievedSerial := <-serialDataChan
-	log.Print(recievedSerial)
-	log.Print("recieved serial")
 	errReciever := determineReciever(recievedSerial[0])
-	log.Printf("errReciever %v", errReciever)
 	if errReciever != nil {
 		parsedDataChan <- nil
+		return
 	}
 	errCommand, recievedCommand := determineCommand(recievedSerial[2])
-	log.Printf("errCommand %v", errCommand)
 	if errCommand == WrongGatewayCommand {
 		parsedDataChan <- nil
+		return
 	}
 	switch recievedCommand {
 	case RecieveData:
-		parsedDataResult := parseSerialData(recievedSerial)
-		parsedDataChan <- parsedDataResult
+		parsedDataChan <- parseSerialData(recievedSerial)
+		return
 	}
 }
 
