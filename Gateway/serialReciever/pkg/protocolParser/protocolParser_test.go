@@ -11,12 +11,10 @@ import (
 func TestValidateSerialData(t *testing.T) {
 	t.Run("test concurrent serial parsing and manage parsing error", func(t *testing.T) {
 		mockDataChannel := make(chan []byte)
-		mockRecievingChannel := make(chan []byte)
 		mockData := []byte{31, 254, 69}
 		go func() {
-			ValidateSerialData(mockRecievingChannel, mockDataChannel)
+			ValidateSerialData(mockData, mockDataChannel)
 		}()
-		mockRecievingChannel <- mockData
 		got := <-mockDataChannel
 		if got != nil {
 			t.Errorf("unmanaged parsing error")
@@ -24,7 +22,6 @@ func TestValidateSerialData(t *testing.T) {
 	})
 	t.Run("concurrent serial parsing", func(t *testing.T) {
 		mockDataChannel := make(chan []byte)
-		mockRecievingChannel := make(chan []byte)
 		mockData := []byte{254, 31, 69}
 		desiredStruct := FormattedData{
 			LocomotiveID: 188,
@@ -54,9 +51,8 @@ func TestValidateSerialData(t *testing.T) {
 			},
 		}
 		go func() {
-			ValidateSerialData(mockRecievingChannel, mockDataChannel)
+			ValidateSerialData(mockData, mockDataChannel)
 		}()
-		mockRecievingChannel <- mockData
 		got := <-mockDataChannel
 		var jsonToTest FormattedData
 		err := json.Unmarshal(got, &jsonToTest)

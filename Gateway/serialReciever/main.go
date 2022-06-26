@@ -3,25 +3,28 @@ package main
 import (
 	"context"
 	"log"
+	"serialReciever/pkg/protocolParser"
 	serialService "serialReciever/pkg/serialservice"
 )
 
 func main() {
 	serialReaderInstance := RecieverInit()
 	ctx := context.Background()
-	serialDataChan := make(chan []byte, 10)
-	//parsedDataChan := make(chan []byte, 10)
+	serialDataChan := make(chan []byte)
+	parsedDataChan := make(chan []byte)
 	go serialReaderInstance.Recieve(ctx, serialDataChan)
-	//go protocolParser.ValidateSerialData(serialDataChan, parsedDataChan)
 
 	for {
 		select {
 		case <-ctx.Done():
 			log.Println("context done")
 			break
-		case <-serialDataChan:
-			//data := <-serialDataChan
-			//protocolParser.ValidateSerialData(serialDataChan, parsedDataChan)
+		case testSerial := <-serialDataChan: //serialDataValue := <-serialDataChan:
+			log.Println("ricevuto seriiale???")
+			go protocolParser.ValidateSerialData(testSerial, parsedDataChan)
+		case test := <-parsedDataChan:
+			log.Println("dato parsato")
+			log.Println(test)
 		}
 	}
 }

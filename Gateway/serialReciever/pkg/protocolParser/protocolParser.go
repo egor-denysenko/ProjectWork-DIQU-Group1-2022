@@ -49,21 +49,22 @@ type VagonLights struct {
 	LightStatus bool
 }
 
-func ValidateSerialData(serialDataChan <-chan []byte, parsedDataChan chan<- []byte) {
-	recievedSerial := <-serialDataChan
-	errReciever := determineReciever(recievedSerial[0])
+func ValidateSerialData(serialData []byte, parsedDataChan chan<- []byte) {
+	errReciever := determineReciever(serialData[0])
+	log.Printf("errReciever %v", errReciever)
 	if errReciever != nil {
 		parsedDataChan <- nil
 		return
 	}
-	errCommand, recievedCommand := determineCommand(recievedSerial[2])
+	errCommand, recievedCommand := determineCommand(serialData[2])
+	log.Printf("errCommand %v", errCommand)
 	if errCommand == WrongGatewayCommand {
 		parsedDataChan <- nil
 		return
 	}
 	switch recievedCommand {
 	case RecieveData:
-		parsedDataChan <- parseSerialData(recievedSerial)
+		parsedDataChan <- parseSerialData(serialData)
 		return
 	}
 }
@@ -74,7 +75,6 @@ func parseSerialData(recievedSerial []byte) []byte {
 	//var StagingDataStruct FormattedData
 
 	StagingDataStruct.VagonID = recievedSerial[1]
-	log.Println(StagingDataStruct.VagonID)
 	StagingDataStruct.LocomotiveID = 188
 	StagingDataStruct.Temperature = 30
 	StagingDataStruct.Humidity = 80
@@ -99,7 +99,6 @@ func parseSerialData(recievedSerial []byte) []byte {
 		LightMode:   false,
 		LightStatus: false,
 	}
-	log.Println(StagingDataStruct)
 	jsonData, err := json.Marshal(StagingDataStruct)
 	if err != nil {
 		log.Fatalln(err)
