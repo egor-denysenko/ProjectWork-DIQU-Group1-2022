@@ -21,3 +21,7 @@ func QueueServiceFactory() *QueueService {
 func (q *QueueService) Enqueue(ctx context.Context, key string, data []byte) error {
 	return q.service.Enqueue(ctx, key, data)
 }
+
+func (q *QueueService) Connect() error {
+	return q.service.Connect()
+}

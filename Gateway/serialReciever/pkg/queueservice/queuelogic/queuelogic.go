@@ -5,6 +5,7 @@ import (
 )
 
 type ITrainQueue interface {
+	Connect() error
 	Enqueue(ctx context.Context, key string, data []byte) error
 }
 type QueueBusinnessLogic struct {
@@ -20,4 +21,8 @@ func NewQueue(queueaccess ITrainQueue) *QueueBusinnessLogic {
 func (q *QueueBusinnessLogic) Enqueue(ctx context.Context, key string, data []byte) error {
 	q.queueAbs.Enqueue(ctx, key, data)
 	return nil
+}
+
+func (q *QueueBusinnessLogic) Connect() error {
+	return q.queueAbs.Connect()
 }

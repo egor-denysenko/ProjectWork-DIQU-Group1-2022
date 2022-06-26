@@ -4,11 +4,17 @@ import (
 	"context"
 	"log"
 	"serialReciever/pkg/protocolParser"
+	"serialReciever/pkg/queueservice"
 	serialService "serialReciever/pkg/serialservice"
 )
 
 func main() {
 	serialReaderInstance := RecieverInit()
+	queueService := QueueInit()
+	err := queueService.Connect()
+	if err != nil {
+		log.Println(err)
+	}
 	ctx := context.Background()
 	serialDataChan := make(chan []byte)
 	parsedDataChan := make(chan []byte)
@@ -22,13 +28,17 @@ func main() {
 		case testSerial := <-serialDataChan: //serialDataValue := <-serialDataChan:
 			log.Println("ricevuto seriiale???")
 			go protocolParser.ValidateSerialData(testSerial, parsedDataChan)
-		case test := <-parsedDataChan:
+		case parsedData := <-parsedDataChan:
 			log.Println("dato parsato")
-			log.Println(test)
+			go queueService.Enqueue(ctx, "test", parsedData)
 		}
 	}
 }
 
 func RecieverInit() *serialService.SerialService {
 	return serialService.ServiceServiceFactory("COM11")
+}
+
+func QueueInit() *queueservice.QueueService {
+	return queueservice.QueueServiceFactory()
 }
