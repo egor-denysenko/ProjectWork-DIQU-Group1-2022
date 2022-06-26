@@ -1,28 +1,29 @@
 package serialservice
 
 import (
-	serialAccess "serialReciever/pkg/serialaccess"
-	serialReciever "serialReciever/pkg/serialreciever"
+	"context"
+	serialAccess "serialReciever/pkg/serialservice/serialaccess"
+	serialReciever "serialReciever/pkg/serialservice/serialreciever"
 )
 
 type iSerialService interface {
-	Recieve() (data []byte, err error)
+	Recieve(ctx context.Context, out chan<- []byte)
 	Close() error
 }
 
-type serialService struct {
+type SerialService struct {
 	service iSerialService
 }
 
-func ServiceServiceFactory() *serialService {
-	return &serialService{
-		service: serialReciever.FactorySerialReciever(serialAccess.NewSerialPortReader()),
+func ServiceServiceFactory(portToOpen string) *SerialService {
+	return &SerialService{
+		service: serialReciever.FactorySerialReciever(serialAccess.NewSerialPortReader(portToOpen)),
 	}
 }
 
-func (s *serialService) Recieve() ([]byte, error) {
-	return s.service.Recieve()
+func (s *SerialService) Recieve(ctx context.Context, out chan<- []byte) {
+	s.service.Recieve(ctx, out)
 }
-func (s *serialService) Close() error {
+func (s *SerialService) Close() error {
 	return s.service.Close()
 }
