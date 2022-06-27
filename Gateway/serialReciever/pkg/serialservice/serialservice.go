@@ -2,8 +2,8 @@ package serialservice
 
 import (
 	"context"
+	"serialReciever/pkg/serialservice/serialReciever"
 	serialAccess "serialReciever/pkg/serialservice/serialaccess"
-	serialReciever "serialReciever/pkg/serialservice/serialreciever"
 )
 
 type iSerialService interface {
@@ -17,7 +17,7 @@ type SerialService struct {
 
 func ServiceServiceFactory(portToOpen string) *SerialService {
 	return &SerialService{
-		service: serialReciever.FactorySerialReciever(serialAccess.NewSerialPortReader(portToOpen)),
+		service: serialreciever.FactorySerialReciever(serialAccess.NewSerialPortReader(portToOpen)),
 	}
 }
 

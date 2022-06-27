@@ -1,11 +1,17 @@
 version: '3.9'
 services:
   redis:
-   image: redis:7.0-alpine
-   restart: always
-   ports:
-     - "6379:6379"
-  cloud_sender:
+    image: redis:7.0.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+  serial-receiver:
+    build:
+      context: ./serialReciever
+    restart: always
+    depends_on:
+      - "redis"
+  cloud-sender:
     build:
       context: ./cloudSender
     restart: always
