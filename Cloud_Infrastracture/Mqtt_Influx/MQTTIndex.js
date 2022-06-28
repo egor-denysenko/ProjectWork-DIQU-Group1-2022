@@ -18,14 +18,16 @@ client.on('message', function (topic, message) {
   try {
     message.toString()
     jsonmss = JSON.parse(message.toString())
+    console.log(jsonmss)
     save_influx(jsonmss)
-
   } catch (error) {
-    console.log("errore banana")
+    console.log(error)
+    console.error(error)
+    console.log("errore formato del pacchetto non corretto")
   }
 })
 
-function save_influx(message) {
+function save_influx(parsedMessage) {
 
   //info to write data to InfluxDB
     const {InfluxDB} = require('@influxdata/influxdb-client')
@@ -41,34 +43,33 @@ function save_influx(message) {
         writeApi.useDefaultTags({host: 'host1'})
 
         //parse the json file recived from mosquitto
-        const obj = JSON.parse(message);
-        console.log(obj.date)
+        //console.log(obj.date)
         const data = new Point('mem')
         //train data
-        .intField("IdTrain", /*254*/obj.IdTrain)
-        .intField("IdWagon",/* 253*/obj.IdWagon)
+        .intField("IdTrain", /*254*/parsedMessage.IdTrain)
+        .intField("IdWagon",/* 253*/parsedMessage.IdWagon)
         //allarms
-        .booleanField("ADoorIO", /* false*/obj.AdoorIO)
-        .booleanField("ADoorB", /*false*/obj.ADoorB)
-        .booleanField("ADoorC", /*false*/ obj.ADoorC)
-        .booleanField("ATemperatureMax", /*false*/obj.ATemperatureMax)
-        .booleanField("ATemperatureMin",/* false*/obj.ATemperatureMin)
-        .booleanField("ALight", /*false*/ obj.ALight)
-        .booleanField("AHumidity", /*false*/obj.AHumidity)
+        .booleanField("ADoorIO", /* false*/parsedMessage.AdoorIO)
+        .booleanField("ADoorB", /*false*/parsedMessage.ADoorB)
+        .booleanField("ADoorC", /*false*/ parsedMessage.ADoorC)
+        .booleanField("ATemperatureMax", /*false*/parsedMessage.ATemperatureMax)
+        .booleanField("ATemperatureMin",/* false*/parsedMessage.ATemperatureMin)
+        .booleanField("ALight", /*false*/ parsedMessage.ALight)
+        .booleanField("AHumidity", /*false*/parsedMessage.AHumidity)
         //Doors
-        .booleanField("Door1", /*true*/obj.Door1)
-        .booleanField("Door2", /*true*/obj.Door2)
-        .booleanField("Door3", /*true*/ obj.Door3)
-        .booleanField("Door4", /*true*/ obj.Door4)
-        .booleanField("DoorBath", /*true*/obj.DoorBath)
-        .booleanField("DoorConduct", /*true*/obj.DoorConduct)
+        .booleanField("Door1", /*true*/parsedMessage.Door1)
+        .booleanField("Door2", /*true*/parsedMessage.Door2)
+        .booleanField("Door3", /*true*/ parsedMessage.Door3)
+        .booleanField("Door4", /*true*/ parsedMessage.Door4)
+        .booleanField("DoorBath", /*true*/parsedMessage.DoorBath)
+        .booleanField("DoorConduct", /*true*/parsedMessage.DoorConduct)
         //Humidity
-        .intField("Humidity", /*20*/obj.Humidity)
+        .intField("Humidity", /*20*/parsedMessage.Humidity)
         //temperature
-        .intField("temperature", /*20*/obj.temperature)
+        .intField("temperature", /*20*/parsedMessage.temperature)
         //Lights
-        .booleanField("LightMode", /*true*/obj.LightMode)
-        .booleanField("LightOn", /*true*/obj.LightOn)
+        .booleanField("LightMode", /*true*/parsedMessage.LightMode)
+        .booleanField("LightOn", /*true*/parsedMessage.LightOn)
         writeApi.writePoint(data);
     
         writeApi
