@@ -17,13 +17,14 @@ func main() {
 	queueService := TryToConnectToQueue(redisConnection)
 	mqttConnection := TryToConnectToBroker(mqttService)
 	for {
-		data, err := DequeueFromQueue(ctx, queueService)
+		_, err := DequeueFromQueue(ctx, queueService)
 		if err != nil {
 			log.Println("error redis o dato nullo %v", err)
 			continue
 		}
 
-		cloudSenderErr := mqttConnection.Pubblish("trainly/0/0/status", data, 0)
+		cloudSenderErr := mqttConnection.Pubblish("trainly/0/0/status", []byte{11}, 0)
+		log.Println("non hai mandato")
 		if cloudSenderErr != nil {
 			log.Println("Pubblish Unsuccessfull Retrying")
 			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte("test"))
