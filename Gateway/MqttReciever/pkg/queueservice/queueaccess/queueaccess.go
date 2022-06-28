@@ -3,8 +3,6 @@ package queueaccess
 import (
 	"context"
 	"fmt"
-	"time"
-
 	"github.com/go-redis/redis/v8"
 )
 
@@ -14,7 +12,7 @@ type VagonMessageQueue struct {
 
 func NewMessageQueue() *VagonMessageQueue {
 	return &VagonMessageQueue{
-		queueConnection: nil, //Connect(),
+		queueConnection: nil,
 	}
 }
 
@@ -39,12 +37,4 @@ func (v *VagonMessageQueue) Connect() error {
 	}
 	v.queueConnection = rdb
 	return nil
-}
-
-func (v *VagonMessageQueue) Dequeue(ctx context.Context, key string) ([]byte, error) {
-	data, err := v.queueConnection.BRPop(ctx, 30*time.Second, key).Result()
-	if err != nil {
-		return nil, err
-	}
-	return []byte(data[1]), nil
 }

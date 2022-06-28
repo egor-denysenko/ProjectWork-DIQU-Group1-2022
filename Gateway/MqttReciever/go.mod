@@ -1,4 +1,4 @@
-module MqttReciever
+module MqttReceiver
 
 go 1.18
 

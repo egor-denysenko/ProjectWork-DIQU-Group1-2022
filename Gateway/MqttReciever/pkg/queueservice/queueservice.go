@@ -1,8 +1,8 @@
 package queueservice
 
 import (
-	"cloudSender/pkg/queueservice/queueaccess"
-	"cloudSender/pkg/queueservice/queuelogic"
+	"MqttReceiver/pkg/queueservice/queueaccess"
+	"MqttReceiver/pkg/queueservice/queuelogic"
 	"context"
 )
 
@@ -20,9 +20,6 @@ func FactoryQueueService() *QueueService {
 
 func (q *QueueService) Connect() error {
 	return q.service.Connect()
-}
-func (q *QueueService) Dequeue(ctx context.Context, key string) ([]byte, error) {
-	return q.service.Dequeue(ctx, key)
 }
 
 func (q *QueueService) Enqueue(ctx context.Context, key string, message []byte) error {

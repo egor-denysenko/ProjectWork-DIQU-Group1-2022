@@ -1,8 +1,8 @@
 package mqttservice
 
 import (
-	"MqttReciever/pkg/mqttservice/mqttaccess"
-	"MqttReciever/pkg/mqttservice/mqttlogic"
+	"MqttReceiver/pkg/mqttservice/mqttaccess"
+	"MqttReceiver/pkg/mqttservice/mqttlogic"
 	"context"
 )
 
