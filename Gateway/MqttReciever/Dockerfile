@@ -10,4 +10,4 @@ FROM scratch
 WORKDIR /cmd/
 # getting the compiled go excecutable from the builder stage container
 COPY --from=builder /go/src/build .
-CMD ["./serialReciever"]
+CMD ["./MqttReciever"]
