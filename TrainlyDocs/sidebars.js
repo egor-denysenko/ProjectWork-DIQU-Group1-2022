@@ -20,7 +20,7 @@ const sidebars = {
   tutorialSidebar: [
     {
       'Introduction':['Introduction/Project_Brief','Introduction/Group_Members'],
-      'Project':['Project/Project_Firmware', 'Project/Project_Gateway', 'Project/Project_Cloud', 'Project/Project_Monitoring']
+      'Project':['Project/Project_Firmware', 'Project/Project_Gateway', 'Project/Project_Cloud']
     },
   ],
 };
