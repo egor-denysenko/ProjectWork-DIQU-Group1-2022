@@ -10,8 +10,8 @@ type MqttService struct {
 	service *mqttlogic.MqttLogic
 }
 
-func FactoryMqttService() *MqttService {
-	return &MqttService{service: mqttlogic.FactoryMqttLogic(mqttaccess.NewMqttConnection())}
+func FactoryMqttService(mqttSubChan chan<- []byte) *MqttService {
+	return &MqttService{service: mqttlogic.FactoryMqttLogic(mqttaccess.NewMqttConnection(mqttSubChan))}
 }
 
 func (m *MqttService) Connect() error {

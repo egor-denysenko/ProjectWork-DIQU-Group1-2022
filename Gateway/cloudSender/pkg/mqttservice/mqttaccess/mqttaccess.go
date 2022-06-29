@@ -13,7 +13,7 @@ type MqttClient struct {
 }
 
 func NewMqttConnection() *MqttClient {
-	serverUrl := "test.mosquitto.org:1883"
+	serverUrl := "3.248.183.191:1883"
 	// Try to reach the Broker and connects to it
 	brokerDial, err := net.Dial("tcp", serverUrl)
 	// manage the connection error from the Dial

@@ -7,27 +7,40 @@ import (
 	"net"
 )
 
+type BrokerSubscriptions *mqtt.Subscribe
+
 type MqttClient struct {
-	mqttInstance   *mqtt.Client
-	mqttConnection *mqtt.Connack
+	mqttInstance        *mqtt.Client
+	BrokerSubscriptions BrokerSubscriptions
 }
 
-func NewMqttConnection() *MqttClient {
-	serverUrl := "test.mosquitto.org:1883"
+func NewMqttConnection(mqttSubChan chan<- []byte) *MqttClient {
+	serverUrl := "3.248.183.191:1883"
 	// Try to reach the Broker and connects to it
-	brokerDial, err := net.Dial("tcp", serverUrl)
+	brokerDial, err := net.Dial("tcp4", serverUrl)
 	// manage the connection error from the Dial
 	if err != nil {
-		log.Fatalf("Failed to connect to %s: %s", serverUrl, err)
+		log.Fatalf("Failed to connect to %v", err)
 	}
 	// Create a default broker instance
 	brokerClient := mqtt.NewClient(mqtt.ClientConfig{
+		Router: mqtt.NewSingleHandlerRouter(func(m *mqtt.Publish) {
+			mqttSubChan <- m.Payload
+		}),
 		Conn: brokerDial,
 	})
 
+	initializeBrokerSubscriptions := mqtt.Subscribe{
+		Properties: &mqtt.SubscribeProperties{
+			SubscriptionIdentifier: nil,
+			User:                   nil,
+		},
+		Subscriptions: map[string]mqtt.SubscribeOptions{},
+	}
+
 	return &MqttClient{
-		mqttInstance:   brokerClient,
-		mqttConnection: nil,
+		mqttInstance:        brokerClient,
+		BrokerSubscriptions: &initializeBrokerSubscriptions,
 	}
 }
 
@@ -48,7 +61,8 @@ func (m *MqttClient) Connect() error {
 	// create a broker client
 	brokerConnection, err := m.mqttInstance.Connect(context.Background(), brokerConnectionOptions)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		log.Printf("%T %+v", err, err)
 		return err
 	}
 	if brokerConnection.ReasonCode != 0 {
@@ -59,14 +73,18 @@ func (m *MqttClient) Connect() error {
 }
 
 func (m *MqttClient) Subscribe(ctx context.Context, topic string) error {
-	newSubscriptionTopic := &mqtt.Subscribe{
-		Properties:    nil,
-		Subscriptions: nil,
+	m.BrokerSubscriptions.Subscriptions[topic] = mqtt.SubscribeOptions{
+		QoS:               0,
+		RetainHandling:    0,
+		NoLocal:           false,
+		RetainAsPublished: false,
 	}
-	subAck, err := m.mqttInstance.Subscribe(ctx, newSubscriptionTopic)
+	//m.BrokerSubscriptions.Properties
+	subAck, err := m.mqttInstance.Subscribe(ctx, m.BrokerSubscriptions)
 	if err != nil {
 		log.Println(err)
+		return err
 	}
-	log.Println(subAck)
-	return err
+	log.Println(*subAck)
+	return nil
 }
