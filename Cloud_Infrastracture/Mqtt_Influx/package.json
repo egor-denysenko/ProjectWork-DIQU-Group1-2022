@@ -1,0 +1,26 @@
+{
+  "name": "ciccio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.13.0",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "fastify": "^3.15.1",
+    "fastify-influxdb": "^1.0.0",
+    "influx": "^5.9.0",
+    "lodash": "^4.17.21",
+    "mqtt": "^4.2.8",
+    "nodemon": "^2.0.16",
+    "redis": "^3.1.2",
+    "type": "module"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "run": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
