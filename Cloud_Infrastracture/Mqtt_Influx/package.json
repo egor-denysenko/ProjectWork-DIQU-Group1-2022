@@ -13,7 +13,8 @@
     "mqtt": "^4.2.8",
     "nodemon": "^2.0.16",
     "redis": "^3.1.2",
-    "type": "module"
+    "type": "module",
+    "update": "^0.7.4"
   },
   "devDependencies": {},
   "scripts": {

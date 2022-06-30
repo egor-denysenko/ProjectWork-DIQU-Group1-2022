@@ -1,6 +1,8 @@
 let mqtt = require('mqtt')
 //let client  = mqtt.connect('mqtt://test.mosquitto.org')
-const client = mqtt.connect('mqtt://20.82.72.240:1883')
+const client = mqtt.connect('mqtt://20.238.251.167:1883',{
+  protocolVersion: 5,
+})
 require('dotenv').config()
 
 //subscription on the topic
