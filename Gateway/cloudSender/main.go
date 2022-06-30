@@ -17,7 +17,7 @@ func main() {
 	queueService := TryToConnectToQueue(redisConnection)
 	mqttConnection := TryToConnectToBroker(mqttService)
 	for {
-		data, err := DequeueFromQueue(ctx, queueService)
+		_, err := DequeueFromQueue(ctx, queueService)
 		if err != nil {
 			log.Println("error redis o dato nullo %v", err)
 			continue

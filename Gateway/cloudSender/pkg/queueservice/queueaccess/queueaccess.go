@@ -28,7 +28,7 @@ func (v *VagonMessageQueue) Enqueue(ctx context.Context, key string, message []b
 
 func (v *VagonMessageQueue) Connect() error {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

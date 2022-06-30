@@ -15,6 +15,9 @@ type MqttClient struct {
 func NewMqttConnection() *MqttClient {
 	serverUrl := "20.238.251.167:1883"
 	// Try to reach the Broker and connects to it
+	/*brokerDial, err := tls.Dial("tcp", serverUrl, &tls.Config{
+		InsecureSkipVerify: true,
+	})*/
 	brokerDial, err := net.Dial("tcp", serverUrl)
 	// manage the connection error from the Dial
 	if err != nil {
@@ -48,11 +51,12 @@ func (m *MqttClient) Connect() error {
 	// create a broker client
 	brokerConnection, err := m.mqttInstance.Connect(context.Background(), brokerConnectionOptions)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println("broker connection error instance")
+		log.Println(err)
 		return err
 	}
 	if brokerConnection.ReasonCode != 0 {
-		log.Fatalf("Failed to connect to MQTT Broker")
+		log.Println("Failed to connect to MQTT Broker")
 		return err
 	}
 	return nil
