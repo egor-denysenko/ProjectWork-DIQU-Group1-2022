@@ -17,3 +17,10 @@ services:
     restart: always
     depends_on:
       - "redis"
+  cloud-receiver:
+    build:
+      context: ./MqttReciever
+    restart: always
+    depends_on:
+      - "redis"
+

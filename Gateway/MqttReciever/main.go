@@ -19,11 +19,12 @@ func main() {
 	queueConnectionErr := queueInstance.Connect()
 	log.Println(queueConnectionErr)
 	subscribeErr := mqttInstance.Subscribe(ctx, "trainly/+/+/status")
-	log.Printf("%T %+v", subscribeErr, subscribeErr)
-	log.Println(subscribeErr)
+	log.Printf("Subscribe Error %T %+v", subscribeErr, subscribeErr)
 	for {
-		mqttData := <-mqttSubChannel
-		log.Println(mqttData)
-		queueInstance.Enqueue(ctx, "test", mqttData)
+		select {
+		case mqttData := <-mqttSubChannel:
+			log.Printf("hai ricevuto %v", mqttData)
+			queueInstance.Enqueue(ctx, "testCommand", mqttData)
+		}
 	}
 }

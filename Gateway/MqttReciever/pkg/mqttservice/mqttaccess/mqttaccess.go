@@ -15,7 +15,7 @@ type MqttClient struct {
 }
 
 func NewMqttConnection(mqttSubChan chan<- []byte) *MqttClient {
-	serverUrl := "3.248.183.191:1883"
+	serverUrl := "20.238.251.167:1883"
 	// Try to reach the Broker and connects to it
 	brokerDial, err := net.Dial("tcp4", serverUrl)
 	// manage the connection error from the Dial
