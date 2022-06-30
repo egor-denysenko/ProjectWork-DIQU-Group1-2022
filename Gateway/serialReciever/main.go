@@ -36,7 +36,7 @@ func main() {
 }
 
 func RecieverInit() *serialService.SerialService {
-	return serialService.ServiceServiceFactory("COM11")
+	return serialService.ServiceServiceFactory("/dev/Uart485Dongle")
 }
 
 func QueueInit() *queueservice.QueueService {

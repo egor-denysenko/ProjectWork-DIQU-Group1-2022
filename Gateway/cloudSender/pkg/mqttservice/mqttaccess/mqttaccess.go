@@ -13,7 +13,7 @@ type MqttClient struct {
 }
 
 func NewMqttConnection() *MqttClient {
-	serverUrl := "test.mosquitto.org:1883"
+	serverUrl := "20.238.251.167:1883"
 	// Try to reach the Broker and connects to it
 	/*brokerDial, err := tls.Dial("tcp", serverUrl, &tls.Config{
 		InsecureSkipVerify: true,

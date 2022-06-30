@@ -11,9 +11,17 @@ services:
     restart: always
     depends_on:
       - "redis"
+    privileged: true
   cloud-sender:
     build:
       context: ./cloudSender
     restart: always
     depends_on:
       - "redis"
+  cloud-receiver:
+    build:
+      context: ./MqttReciever
+    restart: always
+    depends_on:
+      - "redis"
+
