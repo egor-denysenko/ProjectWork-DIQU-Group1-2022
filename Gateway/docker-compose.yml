@@ -9,6 +9,8 @@ services:
     build:
       context: ./serialReciever
     restart: always
+    volumes:
+      - /dev:/dev
     depends_on:
       - "redis"
     privileged: true
@@ -16,6 +18,8 @@ services:
     build:
       context: SerialSender
     restart: always
+    volumes:
+      - /dev:/dev
     depends_on:
       - "redis"
     privileged: true

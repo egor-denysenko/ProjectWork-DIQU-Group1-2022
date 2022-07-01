@@ -34,7 +34,7 @@ func NewSerialPortReader(portToOpen string) *SerialConnection {
 }
 
 func (s *SerialConnection) Send(ctx context.Context, dataBuff []byte) {
-	n, err := s.serialPortConnection.Write(append(dataBuff, []byte("\n\r")...))
+	n, err := s.serialPortConnection.Write(append(dataBuff))
 	if err != nil {
 		log.Fatal(err)
 	}
