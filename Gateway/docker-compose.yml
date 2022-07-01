@@ -12,6 +12,13 @@ services:
     depends_on:
       - "redis"
     privileged: true
+  serial-sender:
+    build:
+      context: SerialSender
+    restart: always
+    depends_on:
+      - "redis"
+    privileged: true
   cloud-sender:
     build:
       context: ./cloudSender

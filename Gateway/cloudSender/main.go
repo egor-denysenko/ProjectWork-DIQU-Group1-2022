@@ -27,7 +27,7 @@ func main() {
 		log.Printf("Messaggio mandato con errorre %T", cloudSenderErr)
 		if cloudSenderErr != nil {
 			log.Println("Pubblish Unsuccessfull Retrying")
-			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte(data))
+			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte("prova"))
 			if enqueueErr != nil {
 				log.Fatalln("can't enqueue not sent message")
 			}
