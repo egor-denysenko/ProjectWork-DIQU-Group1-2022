@@ -65,7 +65,7 @@ func receiverCommandPacket(message map[string]uint8, messageBuffPoint *[]byte) e
 	errWagonCommand := checkIfKeyExists(message, "WagonCommand")
 	errTargetWagon := checkIfKeyExists(message, "TargetWagon")
 	if errWagonCommand != nil || errTargetWagon != nil {
-		return errWagonCommand
+		return KeyDoesNotExistInMap
 	}
 	(*messageBuffPoint)[0] = message["TargetWagon"]
 	(*messageBuffPoint)[1] = message["WagonCommand"]

@@ -41,3 +41,40 @@ func TestCreateSetLightMess(t *testing.T) {
 		})
 	}
 }
+func TestReceiverCommandPacket(t *testing.T) {
+	receiverTestCases := []struct {
+		name     string
+		mockData map[string]uint8
+		want     error
+	}{
+		{name: "Verify Correct Json Creation", mockData: map[string]uint8{"WagonCommand": 70, "TargetWagon": 22}, want: nil},
+		{name: "Correct Error Management", mockData: map[string]uint8{"WagonCommand": 70, "TargetWagonnn": 22}, want: KeyDoesNotExistInMap},
+	}
+	for _, testCase := range receiverTestCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			got := receiverCommandPacket(testCase.mockData, &[]byte{1, 2})
+			if got != testCase.want {
+				t.Errorf("Running Test %v: \n Got %v Expected %v", testCase.name, got, testCase.want)
+			}
+		})
+	}
+}
+func TestCheckIfKeyExists(t *testing.T) {
+	receiverTestCases := []struct {
+		name     string
+		mockData map[string]uint8
+		mockKey  string
+		want     error
+	}{
+		{name: "Verify Correct Key Check", mockData: map[string]uint8{"WagonCommand": 70}, mockKey: "WagonCommand", want: nil},
+		{name: "Correct Error Management", mockData: map[string]uint8{"WagonCommandd": 70}, mockKey: "WagonCommand", want: KeyDoesNotExistInMap},
+	}
+	for _, testCase := range receiverTestCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			got := checkIfKeyExists(testCase.mockData, testCase.mockKey)
+			if got != testCase.want {
+				t.Errorf("Running Test %v: \n Got %v Expected %v", testCase.name, got, testCase.want)
+			}
+		})
+	}
+}
