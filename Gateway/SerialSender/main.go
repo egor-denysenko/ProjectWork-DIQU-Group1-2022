@@ -6,19 +6,17 @@ import (
 	serialService "SerialSender/pkg/serialservice"
 	"context"
 	"log"
+	"time"
 )
 
 func main() {
 	serialReaderInstance := RecieverInit()
-	queueService := QueueInit()
-	err := queueService.Connect()
-	if err != nil {
-		log.Println(err)
-	}
+	queueInstance := QueueInit()
+	queueConnection := TryToConnectToQueue(queueInstance)
 	ctx := context.Background()
 	queueDataChan := make(chan *string)
 	parsedDataChan := make(chan []byte)
-	go queueService.Dequeue(ctx, "test", queueDataChan)
+	go queueConnection.Dequeue(ctx, "test", queueDataChan)
 	for {
 		select {
 		case <-ctx.Done():
@@ -45,4 +43,14 @@ func RecieverInit() *serialService.SerialService {
 
 func QueueInit() *queueservice.QueueService {
 	return queueservice.FactoryQueueService()
+}
+func TryToConnectToQueue(redisConnection *queueservice.QueueService) *queueservice.QueueService {
+	for {
+		connectionErr := redisConnection.Connect()
+		if connectionErr != nil {
+			time.After(1 * time.Second)
+			continue
+		}
+		return redisConnection
+	}
 }
