@@ -9,7 +9,7 @@
 	"scripts": {
 		"test": "tap \"test/**/*.test.js\"",
 		"start": "fastify start -l info app.js",
-		"dev": "npx prettier --write --use-tabs . && fastify start -w -l info -P app.js"
+		"dev": " fastify start -w -l info -P app.js"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,7 +20,11 @@
 		"@influxdata/influxdb-client": "^1.27.0",
 		"fastify": "^4.0.0",
 		"fastify-cli": "^4.1.1",
-		"fastify-plugin": "^3.0.0"
+		"fastify-plugin": "^3.0.0",
+		"json": "^11.0.0",
+		"mqtt": "^4.3.7",
+		"update": "^0.7.4",
+		"upgrade": "^1.1.0"
 	},
 	"devDependencies": {
 		"tap": "^16.1.0"
