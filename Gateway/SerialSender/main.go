@@ -31,8 +31,10 @@ func main() {
 				go protocolParser.ParseMessageToByte(jsonToParse, parsedDataChan)
 			}
 		case parsedData := <-parsedDataChan:
-			log.Printf("dato parsato: %v", parsedData)
-			go serialReaderInstance.Send(ctx, parsedData)
+			if parsedData != nil {
+				log.Printf("dato parsato: %v", parsedData)
+				go serialReaderInstance.Send(ctx, parsedData)
+			}
 		}
 	}
 }

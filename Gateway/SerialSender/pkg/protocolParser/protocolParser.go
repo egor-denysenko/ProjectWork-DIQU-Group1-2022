@@ -14,6 +14,8 @@ const (
 )
 
 var WrongGatewayCommand = errors.New("the command doesn't exist")
+var KeyDoesNotExistInMap = errors.New("the key doesn't exist in the provided map")
+var UnvalidJson = errors.New("Unvalid Json")
 
 func ParseMessageToByte(messageToParse *string, parsedDataChan chan<- []byte) {
 	data, err := messageToMap(messageToParse)
@@ -26,9 +28,9 @@ func ParseMessageToByte(messageToParse *string, parsedDataChan chan<- []byte) {
 	}
 	switch command {
 	case SetTemp:
-		parsedDataChan <- CreateSetTempMess(data)
+		parsedDataChan <- createSetTempMess(data)
 	case SetLight:
-		parsedDataChan <- CreateSetLightMess(data)
+		parsedDataChan <- createSetLightMess(data)
 	}
 	parsedDataChan <- []byte{42}
 }
@@ -40,9 +42,9 @@ func messageToMap(messageToParse *string) (map[string]uint8, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	_, found := usableData["WagonCommand"]
-	if !found {
-		return nil, errors.New("Unvalid Json")
+	errTargetWagon := checkIfKeyExists(usableData, "TargetWagon")
+	if errTargetWagon != nil {
+		return nil, UnvalidJson
 	}
 	return usableData, nil
 }
@@ -59,21 +61,48 @@ func determineCommand(command uint8) (error, RecieveCommand) {
 	}
 }
 
-func RecieverCommandPacket(message map[string]uint8, messageBuffPoint *[]byte) *[]byte {
+func receiverCommandPacket(message map[string]uint8, messageBuffPoint *[]byte) error {
+	errWagonCommand := checkIfKeyExists(message, "WagonCommand")
+	errTargetWagon := checkIfKeyExists(message, "TargetWagon")
+	if errWagonCommand != nil || errTargetWagon != nil {
+		return errWagonCommand
+	}
 	(*messageBuffPoint)[0] = message["TargetWagon"]
 	(*messageBuffPoint)[1] = message["WagonCommand"]
-	return messageBuffPoint
+	return nil
 }
 
-func CreateSetTempMess(message map[string]uint8) []byte {
+func createSetTempMess(message map[string]uint8) []byte {
 	var messageBuff = make([]byte, 3)
-	RecieverCommandPacket(message, &messageBuff)
+	err := receiverCommandPacket(message, &messageBuff)
+	if err != nil {
+		return nil
+	}
+	errTargetTemperature := checkIfKeyExists(message, "TargetTemperature")
+	if errTargetTemperature != nil {
+		return nil
+	}
 	messageBuff[2] = message["TargetTemperature"]
 	return messageBuff
 }
-func CreateSetLightMess(message map[string]uint8) []byte {
+
+func createSetLightMess(message map[string]uint8) []byte {
 	var messageBuff = make([]byte, 3)
-	RecieverCommandPacket(message, &messageBuff)
-	messageBuff[2] = message["TargetTemperature"]
+	err := receiverCommandPacket(message, &messageBuff)
+	if err != nil {
+		return nil
+	}
+	errTargetTemperature := checkIfKeyExists(message, "TargetLight")
+	if errTargetTemperature != nil {
+		return nil
+	}
+	messageBuff[2] = message["TargetLight"]
 	return messageBuff
+}
+
+func checkIfKeyExists(message map[string]uint8, key string) error {
+	if _, ok := message[key]; ok {
+		return nil
+	}
+	return KeyDoesNotExistInMap
 }
