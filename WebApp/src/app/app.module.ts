@@ -8,10 +8,10 @@ import { RegisterComponent } from "./views/register/register.component";
 import { AuthComponent } from './layouts/auth/auth.component';
 import { FooterSmallComponent } from "./components/footer-small/footer-small.component";
 import { AuthNavbarComponent } from "./components/auth-navbar/auth-navbar.component";
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [LoginComponent,RegisterComponent,AppComponent, AuthComponent,FooterSmallComponent,AuthNavbarComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule,HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
