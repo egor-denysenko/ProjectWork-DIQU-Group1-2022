@@ -1,9 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AuthComponent } from "./layouts/auth/auth.component";
+import { LoginComponent } from "./views/login/login.component";
+import { RegisterComponent } from "./views/register/register.component";
 
 
 const routes: Routes = [
-  {
+  /*{
     path:'dashboard',
     component: ,
     children: [
@@ -20,15 +23,16 @@ const routes: Routes = [
     children: [
       { path: "TrainCommand", component:  },
     ],
-  },
+  },*/
   // auth views
   {
     path: "auth",
-    component: ,
+    component: AuthComponent,
     children: [
-      { path: "login", component:},
-      { path: "register", component:},
+      { path: "login", component:LoginComponent},
+      { path: "register", component:RegisterComponent},
       { path: "", redirectTo: "login", pathMatch: "full" },
+      { path: "**", redirectTo: "", pathMatch: "full" },
     ],
   },
 ];
@@ -37,4 +41,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {}
