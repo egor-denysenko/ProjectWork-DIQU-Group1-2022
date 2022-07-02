@@ -2,7 +2,7 @@ const authDataAccess = (cockroach) => {
   const login = async (email) => {
     try {
       const user = await cockroach.one(
-        "SELECT id,username,password FROM users WHERE email = $1",
+        'SELECT id,username,password FROM public."Users" WHERE email = $1',
         [email]
       );
       return user;
@@ -14,7 +14,7 @@ const authDataAccess = (cockroach) => {
   const signUp = async (email, username, hash) => {
     try {
       await cockroach.one(
-        "INSERT INTO users (email, username, password) VALUES ($1,$2,$3) RETURNING id",
+        'INSERT INTO public."Users" (email, username, password) VALUES ($1,$2,$3) RETURNING id',
         [email, username, hash]
       );
     } catch (err) {
