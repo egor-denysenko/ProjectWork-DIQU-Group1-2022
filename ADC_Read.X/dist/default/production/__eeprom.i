@@ -1,4 +1,4 @@
-# 1 "BoardTC.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c90\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,24 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "BoardTC.c" 2
-
-
-
-
-
-
-
-
-#pragma config FOSC = HS
-#pragma config WDTE = OFF
-#pragma config PWRTE = ON
-#pragma config BOREN = ON
-#pragma config LVP = ON
-#pragma config CPD = OFF
-#pragma config WRT = OFF
-#pragma config CP = OFF
-# 41 "BoardTC.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1733,250 +1716,176 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 41 "BoardTC.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 
 
 
 
-char received;
-char recievedData;
-
-
-char convInt[5];
-
-void initSerial(unsigned long int );
-void sendSerial(char );
-void init();
-void UART_TxString(const char*);
-void LCDInit();
-void LCDData(char , char );
-void LCDPosition(char , char );
-void sendStringLCD(char * , char , char );
-void IntToString(int );
-char reciveSerial();
-
-
-void main(void) {
-    init();
-    initSerial(9600);
-
-    PORTE = 0x00;
-    received = 0;
-    int i = 0;
-
-    char mittente = 0x01;
-    char destinatario = 0xfe;
-    char codice = 0x45;
-    char temperatura = 0x35;
-    char sendDataLCD[32] = {'C', 'a', 'm', 'b', 'i', 'o', ' ', 't', 'e', 'm', 'p', 'e', 'r', 'a', 't', 'u', 'r', 'a', '\0'};
-
-    while (1)
-    {
-
-
-
-
-        PORTB = 0x01;
-        _delay((unsigned long)((500)*(8000000/4000.0)));
-
-        if(received)
-        {
-            received = 0;
-            PORTD = recievedData;
-        }
-
-        PORTB = 0x00;
-        _delay((unsigned long)((500)*(8000000/4000.0)));
-# 108 "BoardTC.c"
-    }
-    return;
-}
-
-void __attribute__((picinterrupt(("")))) ISR()
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
 {
+ volatile unsigned char *cp = to;
 
-    if(PIR1 & 0x20)
-    {
-        recievedData = RCREG;
-        PORTD = 1;
-        received = 1;
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)from;
+ while(size--) {
+  while (EECON1bits.WR) continue;
 
-    }
-    if(TXIF)
-    {
-        TXIF = 0;
-    }
+  EECON1 &= 0x7F;
+
+  EECON1bits.RD = 1;
+  *cp++ = EEDATA;
+  ++EEADR;
+ }
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-
-void init(void)
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
 {
-    TRISA |= 0x01;
-    TRISB = 0x00;
-    TRISC = 0x00;
-    TRISD = 0x00;
-    TRISE = 0x00;
-    PORTA = 0x20;
-    PORTD = 0;
-    INTCON = 0xC0;
-    PIE1 = 0x60;
-}
+ const unsigned char *ptr =from;
 
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)to - 1U;
 
-void initSerial(unsigned long int baudRate)
-{
- TRISC &= ~0x40;
- TRISC |= 0x80;
- TXSTA = 0x20;
+ EECON1 &= 0x7F;
 
- RCSTA = 0x90;
-
- INTCON |= 0x80;
- INTCON |= 0x40;
- PIE1 |= 0x20;
-
- received = 0;
-
- SPBRG =(8000000 / (long) (64UL*baudRate)) - 1;
-}
-
-
-void LCDInit()
-{
-   TRISE = 0;
-   TRISD = 0;
-   PORTE = ~0X06;
-   _delay((unsigned long)((20)*(8000000/4000.0)));
-   PORTE = 0x02;
-   LCDData(0X38, 0);
-   _delay((unsigned long)((5)*(8000000/4000.0)));
-   LCDData(0X38, 0);
-   _delay((unsigned long)((1)*(8000000/4000.0)));
-   LCDData(0X38, 0);
-   LCDData(0X08, 0);
-   LCDData(0X0F, 0);
-   LCDData(0X01, 0);
-   LCDData(0X0E, 0);
-   LCDData(0X80, 0);
-}
-
-
-void LCDData(char data, char mode)
-{
-        PORTE |= 0x02;
-        PORTD = data;
-        if(mode)
-        {
-            PORTE |= 0x04;
-        }
-        else
-        {
-            PORTE &= ~0x04;
-        }
-        _delay((unsigned long)((3)*(8000000/4000.0)));
-        PORTE &= ~0x02;
-        _delay((unsigned long)((3)*(8000000/4000.0)));
-        PORTE |= 0x02;
-}
-
-
-void LCDPosition(char r, char c)
-{
-    if (r == 1){
-        LCDData(0X80 + c, 0);
-    }
-    else if (r == 2){
-        LCDData(0XC0 + c, 0);
-    }
-}
-
-
-void sendSerial(char data)
-{
-    PORTE |= 0x01;
- while(!(PIR1 & 0x10));
- PIR1 &= ~0x10;
- TXREG = data;
-    while(!(PIR1 & 0x10));
-    PORTE &= ~0x01;
-}
-
-
-
-char reciveSerial(){
-    while(RCIF==0);
-    RCIF=0;
-    return(RCREG);
-}
-
-
-
-void UART_TxString(const char* str)
-{
-    unsigned char i = 0;
-
-    while (str[i] != 0)
-    {
-        sendSerial(str[i]);
-        i++;
-    }
-}
-
-
-void IntToString(int value)
-{
-    convInt[0] = '0' + (value % 10000) / 1000;
-    convInt[1] = '0' + ((value % 1000) / 100);
-    convInt[2] = '0' + ((value % 100) / 10);
-    convInt[3] = '0' + (value % 10);
-    convInt[4] = '\0';
-}
-
-
-void sendStringLCD(char *str, char r, char c)
-{
-    char i;
-    for(i=0; str[i] != '\0'; i++)
-    {
-        LCDPosition(r, (c + i));
-        LCDData(str[i], 1);
-    }
-}
-
-
-
-void servoRotate0()
-{
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((800)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((19200)*(8000000/4000000.0)));
+ while(size--) {
+  while (EECON1bits.WR) {
+   continue;
   }
+  EEDATA = *ptr++;
+  ++EEADR;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  INTCONbits.GIE = 0;
+  EECON1bits.WREN = 1;
+  EECON2 = 0x55;
+  EECON2 = 0xAA;
+  EECON1bits.WR = 1;
+  EECON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
+# 101 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-void servoRotate90()
+unsigned char
+__eetoc(__eeprom void *addr)
 {
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((1500)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((18500)*(8000000/4000000.0)));
-  }
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-void servoRotate180()
+unsigned int
+__eetoi(__eeprom void *addr)
 {
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((2200)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((17800)*(8000000/4000000.0)));
-  }
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
+
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
+}
+
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }

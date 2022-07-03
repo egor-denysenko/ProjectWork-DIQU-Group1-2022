@@ -43,6 +43,7 @@
 
 //acknowledge comunicazione seriale
 char received;
+char recievedData;
 
 //buffer per conversione da intero a stringa
 char convInt[5];
@@ -56,41 +57,72 @@ void LCDData(char /*data*/, char/*sendData / sendCommand*/);
 void LCDPosition(char /*riga*/, char /*colonna*/);
 void sendStringLCD(char * /*stringa da inviare*/, char /*riga*/, char /*colonna*/);
 void IntToString(int /*intero da convertire*/);
+char reciveSerial();
 
 
 void main(void) {
     init();
     initSerial(9600);
     
-    PORTEbits.RE0 = 1;
+    PORTE = 0x00;
+    received = 0;
     int i = 0;
-    char c = 0x44;
-    char a = 0x00;
-    char b = 0xfe;
-    char sendDataLCD = 'giovanni';
+    
+    char mittente = 0x01;
+    char destinatario = 0xfe;
+    char codice = 0x45;
+    char temperatura = 0x35;
+    char sendDataLCD[32] = {'C', 'a', 'm', 'b', 'i', 'o', ' ', 't', 'e', 'm', 'p', 'e', 'r', 'a', 't', 'u', 'r', 'a', '\0'};
+    
     while (1)
     {
-        sendSerial(a);
-        __delay_ms(1);
-        sendSerial(b);
-        __delay_ms(1);
-        sendSerial(c);
+        
+        //recievedData = reciveSerial();// ricezione dati da seriale        
 
-        PORTD = 0x01 << i;
-        __delay_ms(1000);
-        //per decidere dove scrivere, impostare come data la riga + la colonna
-        LCDPosition(L_L1, 3);
-        LCDData(sendDataLCD, sendData);
-        i++;
-        //c++;
-        //if (c > 126) c = 32;
-        //if (c == 'c') c = 'i';
-        //else c = 'c';
-        if(i > 7) {
-            i = 0;            
-        }       
+        
+        PORTB = 0x01;
+        __delay_ms(500);
+        
+        if(received)
+        {
+            received = 0;
+            PORTD = recievedData;
+        } 
+        
+        PORTB = 0x00;
+        __delay_ms(500);
+        
+        /*
+        sendSerial(mittente);//invio dati tramite seriale
+        __delay_ms(1);
+        sendSerial(destinatario);
+        __delay_ms(1);
+        sendSerial(codice);
+        __delay_ms(1);
+        sendSerial(temperatura);
+        __delay_ms(1);
+        */
+        
+        //PORTD = 0x01 << i; //led portd che si illuminano in sequenza
+        //__delay_ms(1000);
     }
     return;
+}
+
+void __interrupt() ISR()
+{
+    //PORTD = 2;
+    if(PIR1 & 0x20)
+    {
+        recievedData = RCREG;
+        PORTD = 1;
+        received = 1;
+        //RCIF = 0;
+    }
+    if(TXIF)
+    {
+        TXIF = 0;
+    }
 }
 
 //init generale
@@ -102,6 +134,9 @@ void init(void)
     TRISD = 0x00;
     TRISE = 0x00;
     PORTA = 0x20;
+    PORTD = 0;
+    INTCON = 0xC0;
+    PIE1 = 0x60;
 }
 
 //init specifico porta seriale
@@ -109,8 +144,7 @@ void initSerial(unsigned long int baudRate)
 {
 	TRISC &= ~0x40;
 	TRISC |= 0x80;
-	
-	TXSTA = 0x20;
+	TXSTA = 0x20; //provare a impostare a 24
 	
 	RCSTA = 0x90;
 	
@@ -120,7 +154,7 @@ void initSerial(unsigned long int baudRate)
 	
 	received = 0;
 	
-	SPBRG = (char) (_XTAL_FREQ / (long) (64UL*baudRate)) - 1;
+	SPBRG =(_XTAL_FREQ / (long) (64UL*baudRate)) - 1;
 }
 
 //init LCD
@@ -165,16 +199,33 @@ void LCDData(char data, char mode)
 //funzione per impostare la posizione di visualizzazione del display
 void LCDPosition(char r, char c)
 {
-    LCDData(r + c, sendCommand);
+    if (r == 1){
+        LCDData(L_L1 + c, sendCommand);
+    }
+    else if (r == 2){
+        LCDData(L_L2 + c, sendCommand);    
+    }
 }
 
 //funzione invio dati tramite seriale
 void sendSerial(char data)
 {
+    PORTE |= 0x01;
 	while(!(PIR1 & 0x10));
 	PIR1 &= ~0x10;
 	TXREG = data;
+    while(!(PIR1 & 0x10));
+    PORTE &= ~0x01;
 }
+
+//funzione ricezione dati tramite seriale
+
+char reciveSerial(){
+    while(RCIF==0);    // Wait till the data is received 
+    RCIF=0;            // Clear receiver flag
+    return(RCREG);  
+}
+
 
 //invio stringa seriale
 void UART_TxString(const char* str)
@@ -191,7 +242,7 @@ void UART_TxString(const char* str)
 //conversione valore intero (fino a 9999) in stringa
 void IntToString(int value)
 {
-    convInt[0] = '0' + (value / 1000);
+    convInt[0] = '0' + (value % 10000) / 1000;
     convInt[1] = '0' + ((value % 1000) / 100);
     convInt[2] = '0' + ((value % 100) / 10);
     convInt[3] = '0' + (value % 10);
@@ -204,7 +255,46 @@ void sendStringLCD(char *str, char r, char c)
     char i;
     for(i=0; str[i] != '\0'; i++)
     {
-        LCDPosition(r + (c + i), sendCommand);
+        LCDPosition(r, (c + i));
         LCDData(str[i], sendData);
     }
 }
+
+
+//funzionamento servo motore
+void servoRotate0() //0 Degree
+{
+  unsigned int i;
+  for(i=0;i<50;i++)
+  {
+    PORTB &= 0x01;
+    __delay_us(800);
+    PORTB &= 0x00;
+    __delay_us(19200);
+  }
+}
+
+void servoRotate90() //90 Degree
+{
+  unsigned int i;
+  for(i=0;i<50;i++)
+  {
+    PORTB &= 0x01;
+    __delay_us(1500);
+    PORTB &= 0x00;
+    __delay_us(18500);
+  }
+}
+
+void servoRotate180() //180 Degree
+{
+  unsigned int i;
+  for(i=0;i<50;i++)
+  {
+    PORTB &= 0x01;
+    __delay_us(2200);
+    PORTB &= 0x00;
+    __delay_us(17800);
+  }
+}
+//fine funzionamento servo motore

@@ -1,4 +1,4 @@
-# 1 "BoardTC.c"
+# 1 "ADCMain.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "BoardTC.c" 2
-
+# 1 "ADCMain.c" 2
 
 
 
@@ -23,7 +22,7 @@
 #pragma config CPD = OFF
 #pragma config WRT = OFF
 #pragma config CP = OFF
-# 41 "BoardTC.c"
+# 39 "ADCMain.c"
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1733,125 +1732,148 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 41 "BoardTC.c" 2
+# 39 "ADCMain.c" 2
 
 
-
-
-char received;
-char recievedData;
+void delay(int);
+void ADC_Init();
+int ADC_Read(int);
+void IntToString(int);
+void LCDInit();
+void LCDData(char, char);
+void LCDPosition(char, char);
+void IntToString(int);
+void sendStringLCD(char *, char, char);
+int map(int, int, int, int, int);
 
 
 char convInt[5];
+char stringTemp[6] = {'T', 'm', 'p', ':', '\0'};
+char stringWC[4] = {'W','C',':','\0'};
+char stringFreeWC[5] = {'F','r','e','e','\0'};
+char stringBuisyWC[5] = {'B','u','i','s','y','\0'};
+char stringClosed[12] = {'C','h','i','u','s','u','r','a',' ','P', '\0'};
+char stringOpened[12] = {'A','p','e','r','t','u','r','a',' ','P', '\0'};
+char stringClear[17] = {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', '\0'};
+char setTemp = 35;
+char currentTemp = 0;
 
-void initSerial(unsigned long int );
-void sendSerial(char );
-void init();
-void UART_TxString(const char*);
-void LCDInit();
-void LCDData(char , char );
-void LCDPosition(char , char );
-void sendStringLCD(char * , char , char );
-void IntToString(int );
-char reciveSerial();
+void main(void)
+{
+
+    int adcValue=0;
+
+    TRISD = 0x00;
+    TRISB = 0x38;
+    PORTD = 0x00;
+    TRISC = 0x00;
 
 
-void main(void) {
-    init();
-    initSerial(9600);
-
-    PORTE = 0x00;
-    received = 0;
-    int i = 0;
-
-    char mittente = 0x01;
-    char destinatario = 0xfe;
-    char codice = 0x45;
-    char temperatura = 0x35;
-    char sendDataLCD[32] = {'C', 'a', 'm', 'b', 'i', 'o', ' ', 't', 'e', 'm', 'p', 'e', 'r', 'a', 't', 'u', 'r', 'a', '\0'};
-
-    while (1)
+    ADC_Init();
+    LCDInit();
+    LCDData(0x0C, 0);
+    while(1)
     {
 
-
-
-
-        PORTB = 0x01;
-        _delay((unsigned long)((500)*(8000000/4000.0)));
-
-        if(received)
+        adcValue = ADC_Read(2);
+        PORTD = adcValue;
+        currentTemp = map(adcValue, 56, 158, 28, 78);
+        if (currentTemp < setTemp)
         {
-            received = 0;
-            PORTD = recievedData;
+            PORTC |= 0x20;
+            PORTC &= 0x20;
+        }
+        else
+        {
+            PORTC |= 0x04;
+            PORTC &= 0x04;
         }
 
-        PORTB = 0x00;
-        _delay((unsigned long)((500)*(8000000/4000.0)));
-# 108 "BoardTC.c"
+        IntToString(currentTemp);
+        sendStringLCD(stringTemp, 1, 0);
+        sendStringLCD(convInt, 1, 4);
+        sendStringLCD(stringWC, 1, 8);
+
+
+        if(!(PORTB &= 0x10)){
+            sendStringLCD(stringClosed, 2, 0);
+        }
+        else
+        if(!(PORTB &= 0x08)){
+            sendStringLCD(stringOpened, 2, 0);
+        }else{sendStringLCD(stringClear, 2, 0);}
+
+
+        if(!(PORTB &= 0x20)){
+            sendStringLCD(stringBuisyWC, 1, 11);
+        }
+        else
+        {
+            sendStringLCD(stringFreeWC, 1, 11);
+        }
     }
     return;
 }
 
-void __attribute__((picinterrupt(("")))) ISR()
-{
+int map(int x, int in_min, int in_max, int out_min, int out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
-    if(PIR1 & 0x20)
+void ADC_Init()
+ {
+    TRISA = 0x04;
+    ADCON0 = 0x91;
+    ADCON1 = 0x89;
+    _delay((unsigned long)((20)*(20000000/4000.0)));
+}
+
+
+int ADC_Read(int channel)
+ {
+    TRISA = 0x04;
+ ADCON0 = (ADCON0 & 0xC7) | (unsigned char) (channel<<3);
+ _delay((unsigned long)((20)*(20000000/4000.0)));
+
+
+ ADCON0 = ADCON0 | 0x04;
+
+ while(!(ADCON0 & ~0x04));
+
+ return ADRESL + (unsigned int) (ADRESH << 8);
+ }
+
+
+void IntToString(int value)
+{
+    convInt[0] = '0' + ((value % 100) / 10);
+    convInt[1] = '0' + (value % 10);
+    convInt[2] = 'C';
+    convInt[3] = '\0';
+    convInt[4] = '\0';
+}
+
+
+void sendStringLCD(char *str, char r, char c)
+{
+    char i;
+    for(i=0; str[i] != '\0'; i++)
     {
-        recievedData = RCREG;
-        PORTD = 1;
-        received = 1;
-
-    }
-    if(TXIF)
-    {
-        TXIF = 0;
+        LCDPosition(r, (c + i));
+        LCDData(str[i], 1);
     }
 }
-
-
-void init(void)
-{
-    TRISA |= 0x01;
-    TRISB = 0x00;
-    TRISC = 0x00;
-    TRISD = 0x00;
-    TRISE = 0x00;
-    PORTA = 0x20;
-    PORTD = 0;
-    INTCON = 0xC0;
-    PIE1 = 0x60;
-}
-
-
-void initSerial(unsigned long int baudRate)
-{
- TRISC &= ~0x40;
- TRISC |= 0x80;
- TXSTA = 0x20;
-
- RCSTA = 0x90;
-
- INTCON |= 0x80;
- INTCON |= 0x40;
- PIE1 |= 0x20;
-
- received = 0;
-
- SPBRG =(8000000 / (long) (64UL*baudRate)) - 1;
-}
-
 
 void LCDInit()
 {
    TRISE = 0;
    TRISD = 0;
    PORTE = ~0X06;
-   _delay((unsigned long)((20)*(8000000/4000.0)));
+   _delay((unsigned long)((20)*(20000000/4000.0)));
    PORTE = 0x02;
    LCDData(0X38, 0);
-   _delay((unsigned long)((5)*(8000000/4000.0)));
+   _delay((unsigned long)((5)*(20000000/4000.0)));
    LCDData(0X38, 0);
-   _delay((unsigned long)((1)*(8000000/4000.0)));
+   _delay((unsigned long)((1)*(20000000/4000.0)));
    LCDData(0X38, 0);
    LCDData(0X08, 0);
    LCDData(0X0F, 0);
@@ -1873,9 +1895,9 @@ void LCDData(char data, char mode)
         {
             PORTE &= ~0x04;
         }
-        _delay((unsigned long)((3)*(8000000/4000.0)));
+        _delay((unsigned long)((3)*(20000000/4000.0)));
         PORTE &= ~0x02;
-        _delay((unsigned long)((3)*(8000000/4000.0)));
+        _delay((unsigned long)((3)*(20000000/4000.0)));
         PORTE |= 0x02;
 }
 
@@ -1888,95 +1910,4 @@ void LCDPosition(char r, char c)
     else if (r == 2){
         LCDData(0XC0 + c, 0);
     }
-}
-
-
-void sendSerial(char data)
-{
-    PORTE |= 0x01;
- while(!(PIR1 & 0x10));
- PIR1 &= ~0x10;
- TXREG = data;
-    while(!(PIR1 & 0x10));
-    PORTE &= ~0x01;
-}
-
-
-
-char reciveSerial(){
-    while(RCIF==0);
-    RCIF=0;
-    return(RCREG);
-}
-
-
-
-void UART_TxString(const char* str)
-{
-    unsigned char i = 0;
-
-    while (str[i] != 0)
-    {
-        sendSerial(str[i]);
-        i++;
-    }
-}
-
-
-void IntToString(int value)
-{
-    convInt[0] = '0' + (value % 10000) / 1000;
-    convInt[1] = '0' + ((value % 1000) / 100);
-    convInt[2] = '0' + ((value % 100) / 10);
-    convInt[3] = '0' + (value % 10);
-    convInt[4] = '\0';
-}
-
-
-void sendStringLCD(char *str, char r, char c)
-{
-    char i;
-    for(i=0; str[i] != '\0'; i++)
-    {
-        LCDPosition(r, (c + i));
-        LCDData(str[i], 1);
-    }
-}
-
-
-
-void servoRotate0()
-{
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((800)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((19200)*(8000000/4000000.0)));
-  }
-}
-
-void servoRotate90()
-{
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((1500)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((18500)*(8000000/4000000.0)));
-  }
-}
-
-void servoRotate180()
-{
-  unsigned int i;
-  for(i=0;i<50;i++)
-  {
-    PORTB &= 0x01;
-    _delay((unsigned long)((2200)*(8000000/4000000.0)));
-    PORTB &= 0x00;
-    _delay((unsigned long)((17800)*(8000000/4000000.0)));
-  }
 }

@@ -3,17 +3,19 @@
 [d edition pro ]
 [d chip 16F877A ]
 [d frameptr 0 ]
-"59 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+"63 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
 [v _main main `(v  1 e 1 0 ]
-"95
+"112
+[v _ISR ISR `II(v  1 e 1 0 ]
+"129
 [v _init init `(v  1 e 1 0 ]
-"106
+"143
 [v _initSerial initSerial `(v  1 e 1 0 ]
-"145
+"181
 [v _LCDData LCDData `(v  1 e 1 0 ]
-"164
+"200
 [v _LCDPosition LCDPosition `(v  1 e 1 0 ]
-"170
+"211
 [v _sendSerial sendSerial `(v  1 e 1 0 ]
 "5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -31,21 +33,18 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "45 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
 [v _received received `uc  1 e 1 0 ]
-"48
+"46
+[v _recievedData recievedData `uc  1 e 1 0 ]
+"49
 [v _convInt convInt `[5]uc  1 e 5 0 ]
 "166 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"216
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
 "340
 [v _PORTD PORTD `VEuc  1 e 1 @8 ]
 "402
 [v _PORTE PORTE `VEuc  1 e 1 @9 ]
-[s S31 . 1 `uc 1 RE0 1 0 :1:0 
-`uc 1 RE1 1 0 :1:1 
-`uc 1 RE2 1 0 :1:2 
-]
-"414
-[u S35 . 1 `S31 1 . 1 0 ]
-[v _PORTEbits PORTEbits `VES35  1 e 1 @9 ]
 "454
 [v _INTCON INTCON `VEuc  1 e 1 @11 ]
 "532
@@ -54,6 +53,8 @@
 [v _RCSTA RCSTA `VEuc  1 e 1 @24 ]
 "1059
 [v _TXREG TXREG `VEuc  1 e 1 @25 ]
+"1066
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
 "1325
 [v _TRISA TRISA `VEuc  1 e 1 @133 ]
 "1375
@@ -70,70 +71,45 @@
 [v _TXSTA TXSTA `VEuc  1 e 1 @152 ]
 "2080
 [v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
-"59 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+"2743
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"3037
+[v _TXIF TXIF `VEb  1 e 0 @100 ]
+"63 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
 [v _main main `(v  1 e 1 0 ]
 {
-"64
-[v main@i i `i  1 a 2 17 ]
-"68
-[v main@sendDataLCD sendDataLCD `uc  1 a 1 16 ]
-"67
-[v main@b b `uc  1 a 1 15 ]
-"66
-[v main@a a `uc  1 a 1 14 ]
-"65
-[v main@c c `uc  1 a 1 13 ]
-"92
+"75
+[v main@sendDataLCD sendDataLCD `[32]uc  1 a 32 19 ]
+"74
+[v main@F880 F880 `[32]uc  1 s 32 F880 ]
+"110
 } 0
-"170
-[v _sendSerial sendSerial `(v  1 e 1 0 ]
-{
-[v sendSerial@data data `uc  1 a 1 wreg ]
-[v sendSerial@data data `uc  1 a 1 wreg ]
-[v sendSerial@data data `uc  1 a 1 1 ]
-"175
-} 0
-"106
+"143
 [v _initSerial initSerial `(v  1 e 1 0 ]
 {
-[v initSerial@baudRate baudRate `ul  1 p 4 6 ]
-"122
+[v initSerial@baudRate baudRate `ul  1 p 4 7 ]
+"158
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
 {
 "10
-[v ___aldiv@quotient quotient `l  1 a 4 2 ]
+[v ___aldiv@quotient quotient `l  1 a 4 3 ]
 "11
-[v ___aldiv@sign sign `uc  1 a 1 1 ]
-[v ___aldiv@counter counter `uc  1 a 1 0 ]
+[v ___aldiv@sign sign `uc  1 a 1 2 ]
+[v ___aldiv@counter counter `uc  1 a 1 1 ]
 "5
-[v ___aldiv@divisor divisor `l  1 p 4 0 ]
-[v ___aldiv@dividend dividend `l  1 p 4 4 ]
+[v ___aldiv@divisor divisor `l  1 p 4 3 ]
+[v ___aldiv@dividend dividend `l  1 p 4 7 ]
 "41
 } 0
-"95 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+"129 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
 [v _init init `(v  1 e 1 0 ]
 {
-"103
+"140
 } 0
-"164
-[v _LCDPosition LCDPosition `(v  1 e 1 0 ]
+"112
+[v _ISR ISR `II(v  1 e 1 0 ]
 {
-[v LCDPosition@r r `uc  1 a 1 wreg ]
-[v LCDPosition@r r `uc  1 a 1 wreg ]
-[v LCDPosition@c c `uc  1 p 1 4 ]
-"166
-[v LCDPosition@r r `uc  1 a 1 5 ]
-"167
-} 0
-"145
-[v _LCDData LCDData `(v  1 e 1 0 ]
-{
-[v LCDData@data data `uc  1 a 1 wreg ]
-[v LCDData@data data `uc  1 a 1 wreg ]
-[v LCDData@mode mode `uc  1 p 1 0 ]
-"147
-[v LCDData@data data `uc  1 a 1 3 ]
-"161
+"126
 } 0
