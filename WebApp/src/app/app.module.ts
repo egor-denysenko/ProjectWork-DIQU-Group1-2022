@@ -9,9 +9,12 @@ import { AuthComponent } from './layouts/auth/auth.component';
 import { FooterSmallComponent } from "./components/footer-small/footer-small.component";
 import { AuthNavbarComponent } from "./components/auth-navbar/auth-navbar.component";
 import { HttpClientModule } from '@angular/common/http';
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [LoginComponent,RegisterComponent,AppComponent, AuthComponent,FooterSmallComponent,AuthNavbarComponent],
-  imports: [BrowserModule, AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
