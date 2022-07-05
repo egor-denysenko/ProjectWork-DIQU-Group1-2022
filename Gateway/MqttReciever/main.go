@@ -18,7 +18,7 @@ func main() {
 
 	queueConnectionErr := queueInstance.Connect()
 	log.Println(queueConnectionErr)
-	subscribeErr := mqttInstance.Subscribe(ctx, "trainly/+/+/status")
+	subscribeErr := mqttInstance.Subscribe(ctx, "trainly/+/command")
 	log.Printf("Subscribe Error %T %+v", subscribeErr, subscribeErr)
 	for {
 		select {

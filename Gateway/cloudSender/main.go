@@ -24,10 +24,10 @@ func main() {
 		}
 
 		cloudSenderErr := mqttConnection.Pubblish("trainly/0/0/status", []byte("{\"IdTrain\":0,\"IdWagon\":0,\"AdoorIO\":false,\"AdoorB\":false,\"AdoorC\":false,\"ATemperatureMax\":false,\"ATemperatureMin\":false,\"ALight\":false,\"AHumidity\":false,\"Door1\":true,\"Door2\":true,\"Door3\":true,\"Door4\":true,\"DoorBath\":true,\"DoorConduct\":true,\"Humidity\":50,\"temperature\":23,\"LightMode\":true,\"LightOn\":true}"), 0)
-		log.Printf("Messaggio mandato con errorre %T", cloudSenderErr)
+		log.Printf("Messaggio mandato con errorre %v", cloudSenderErr)
 		if cloudSenderErr != nil {
 			log.Println("Pubblish Unsuccessfull Retrying")
-			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte(data))
+			enqueueErr := redisConnection.Enqueue(context.Background(), "test", []byte("prova"))
 			if enqueueErr != nil {
 				log.Fatalln("can't enqueue not sent message")
 			}
