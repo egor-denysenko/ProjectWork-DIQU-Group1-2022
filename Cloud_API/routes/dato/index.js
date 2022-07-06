@@ -9,15 +9,17 @@ module.exports = async function (fastify, opts) {
       "Get data about temperature, humidity, door closing status and toilette occupancy.",
     response: {
       200: {
-        type: "object",
-        properties: {
-          data: { type: "object" },
+        type: "array",
+        items: {
+          type: "object",
         },
       },
     },
     handler: async function (request, reply) {
-      const datoRic = fastify.query();
-      return datoRic;
+      return await fastify.query()
+      // console.log("boia lupo");
+      // console.log(datoRic);
+      //return 42;
     },
   });
 };
