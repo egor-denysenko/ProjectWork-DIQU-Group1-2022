@@ -10,6 +10,11 @@ export class ApiService {
     this.root = 'http://localhost';
     this.port = ':5555';
   }
+
+  public get(link: string){
+    return this.http.get<any>(this.root + this.port + link);
+  }
+
   public post(link, obj) {
     return this.http.post<any>(this.root + this.port + link, obj);
   }

@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free": "5.15.3",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
-    "chart.js": "2.9.4",
+    "chart.js": "^2.9.4",
     "rxjs": "6.6.6",
     "tailwindcss": "2.0.4",
     "zone.js": "0.11.4"

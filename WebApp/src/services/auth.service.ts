@@ -5,53 +5,38 @@ const jwtHelper = new JwtHelperService();
 
 @Injectable()
 export class AuthService {
-  private localStorage: Storage; //| null = null;
+
   constructor(
-    private api: ApiService,
-    private storage: Storage,
+    private api: ApiService
   ) {}
 
-  async onInit() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
-    const storage = await this.storage.create();
-    this.localStorage = storage;
-  }
 
-  public async isAuthenticated(): Promise<any> {
-    await this.onInit();
+  public async isAuthenticated(){
     // Get token from localstorage
-    const token = await this.localStorage.get('token');
-    // Check if token is null or empty
+    const token = localStorage.getItem('token');
+    console.log(token)
+    // Check if token is null or valorized
     if (token !== null) {
-      // Check whether the token is expired and return
-      // true or false
-      const verified = await this.verifyToken(token);
-      console.log(verified);
-      if (verified) {
-        const { id, username } = jwtHelper.decodeToken(token);
-        return !jwtHelper.isTokenExpired(token);
-      } else {
-        return false;
+      console.log("token non verif")
+      if (this.verifyToken(token)) {
+        return jwtHelper.isTokenExpired(token);
       }
-    } else {
-      return false;
     }
+      return false;
   }
 
   public async login(email, password) {
-    if (this.localStorage === undefined) {
-      await this.onInit();
+    if (localStorage === undefined) {
+     localStorage.setItem("token","")
     }
     return new Promise((resolve, reject) => {
-      this.api.post('/login', { email: email, password: password }).subscribe(
+      this.api.post('/auth', { email: email, password: password }).subscribe(
         async (data) => {
           if (data !== []) {
-            console.log(data.token);
-            await this.localStorage.set('token', data.token);
+            localStorage.setItem('token', data.token);
             resolve('OK');
           } else {
             console.log('errore nel login');
-            console.log(data.error);
             reject('ERRORE ' + data.error);
           }
         },
@@ -62,16 +47,18 @@ export class AuthService {
     });
   }
 
-  private async verifyToken(token) {
-    return new Promise((resolve, reject) => {
-      this.api.post('/login/verify', { token }).subscribe((verified) => {
-        if (verified.status) resolve(true);
-        else reject(false + verified.error);
+  private verifyToken(token: string): boolean {
+      this.api.post('/auth/verify', { token }).subscribe((verified) => {
+        console.log(verified)
+        if(verified.status){
+          return true
+        }
+        return true
       });
-    });
+      return false
   }
 
   public logout() {
-    this.localStorage.remove('token');
+    localStorage.remove('token');
   }
 }
