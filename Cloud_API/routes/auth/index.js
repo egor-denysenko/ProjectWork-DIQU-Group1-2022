@@ -2,7 +2,7 @@
 
 const authData = require("./auth.data");
 module.exports = async function (fastify, opts) {
-  const cockroach = authData(fastify.cockroachDB);
+  const psql = authData(fastify.sql);
   const saltRounds = 14;
   fastify.post("/", {
     schema: {
@@ -31,7 +31,7 @@ module.exports = async function (fastify, opts) {
     handler: async function (request, reply) {
       try {
         const { email, password } = request.body;
-        const login = await cockroach.login(email);
+        const login = await psql.login(email);
         const match = await fastify.bcrypt.compare(password, login["password"]);
         if (!match) {
           return [];
@@ -56,7 +56,7 @@ module.exports = async function (fastify, opts) {
       }
     },
   });
-  fastify.post("/SingUp", {
+  fastify.post("/register", {
     schema: {
       tags: ["Login"],
       description: "Route For Creating A User",
@@ -83,7 +83,9 @@ module.exports = async function (fastify, opts) {
       try {
         const { email, username, password } = request.body;
         const hash = fastify.bcrypt.hashSync(password, saltRounds);
-        await cockroach.signUp(email, username, hash);
+        console.log(psql);
+        console.log("fastify psql robbe");
+        await psql.signUp(email, username, hash);
         return { status: "Success" };
       } catch (err) {
         console.log(err);
