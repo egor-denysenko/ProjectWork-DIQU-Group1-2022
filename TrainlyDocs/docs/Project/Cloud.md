@@ -7,6 +7,30 @@ title: Cloud
 Cloud receive data from raspberry py with MQTT protocol.
 The cloud subscribes to the VerneMQ broker topic where the gateway publishes information; this way the data can be saved to the database and displayed.
 
+This is the JSON that arrives on InfluxDB:
+
+{
+  "IdTrain": value,
+  "IdWagon" : value,
+  "AdoorIO" : value,
+  "AdoorB" : value,
+  "AdoorC" : value,
+  "ATemperatureMax" : value,
+  "ATemperatureMin": value,
+  "ALight" : value,
+  "AHumidity" : value,
+  "Door1": value,
+  "Door2": value,
+  "Door3": value,
+  "Door4": value,
+  "DoorBath": value,
+  "DoorConduct": value,
+  "Humidity": value,
+  "temperature": value,
+  "LightMode": value,
+  "LightOn": value
+}
+
 ## Data management
 The node.js application receives the data and sends it to InfluxDB to storage it in the database.
 

@@ -1,6 +1,6 @@
 ---
 id: Project_Firmware
-title: Firmware
+title: Firmware / Embedded
 ---
 
 ## Collect and sending data
@@ -31,17 +31,24 @@ In this section we are going to give a brief explanation about the used code.
 
 This function has the aim to read the data (like temperature) and return a value between 0 and 1024.
 
+The first step is to set the analog-channel-corresponding-bit register.
+By doing this, we are going to be able to read analog data throught the analog channel AN2.
+
+ADCON0 register is used to manage the conversion process. First we select the channel, then wait 20ms for the 
+capacitor to charge, set the GO bit to start reading the data, wait until it's resetted (conversion ended) and
+return the data from the function.
+
 ![](../../static/img/letturaDatoAnalogico.jpg)
 
-This function transform a int value in a string value to show it in the LCD display.
+This function converts int values to string values. Used to display data on LCD display.
 
 ![](../../static/img/ConversioneIntString.jpg)
 
 
-This function has to send data or command to LCD display.
+Send data or command to LCD display.
 
 ![](../../static/img/InvioDatoComandoLCD.jpg)
 
-This function initialize the LCD display.
+Initialization of the LCD display.
 
 ![](../../static/img/InizializzazioneLCD.jpg)
