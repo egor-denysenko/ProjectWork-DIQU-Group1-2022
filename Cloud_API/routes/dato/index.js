@@ -16,10 +16,8 @@ module.exports = async function (fastify, opts) {
       },
     },
     handler: async function (request, reply) {
-      return await fastify.query()
-      // console.log("boia lupo");
-      // console.log(datoRic);
-      //return 42;
+      console.log("ti ritorno dato")
+      return await fastify.query();
     },
   });
 };

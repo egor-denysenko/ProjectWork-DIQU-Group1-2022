@@ -2,7 +2,7 @@ const authDataAccess = (psql) => {
   const login = async (email) => {
     try {
       const user = await psql.one(
-        "SELECT id,username,password FROM Users WHERE email = $1",
+        "SELECT id,username,password FROM public.operators WHERE email = $1",
         [email]
       );
       return user;
@@ -14,7 +14,7 @@ const authDataAccess = (psql) => {
   const signUp = async (email, username, hash) => {
     try {
       await psql.one(
-        "INSERT INTO operators (email, username, password) VALUES ($1,$2,$3) RETURNING id",
+        "INSERT INTO public.operators (email, username, password) VALUES ($1,$2,$3) RETURNING id",
         [email, username, hash]
       );
     } catch (err) {

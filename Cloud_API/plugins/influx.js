@@ -14,21 +14,21 @@ module.exports = fp(async function (fastify, opts) {
     const queryApi = client.getQueryApi(org);
 
     const query = `from(bucket: "Trainly")
-	|> range(start: -24h)
+	|> range(start: -30d)
 	|> filter(fn: (r) => r["_field"] == "Humidity" or r["_field"] == "temperature")
 	|> yield(name: "last")`;
     return queryApi
       .collectRows(query /*, you can specify a row mapper as a second arg */)
       .then((data) => {
         if (data._field == "temperature" || data._field == "Humidity") {
-        	datoObject._time = o._time;
-        	datoObject._field = o._field;
-        	datoObject._value = o._value;
-        	dato.push(datoObject);
+          datoObject._time = o._time;
+          datoObject._field = o._field;
+          datoObject._value = o._value;
+          dato.push(datoObject);
         }
         //data.forEach(x => console.log(JSON.stringify(x)))
         console.log("\nCollect ROWS SUCCESS");
-		return JSON.stringify(data)
+        return JSON.stringify(data);
       })
       .catch((error) => {
         console.error(error);
