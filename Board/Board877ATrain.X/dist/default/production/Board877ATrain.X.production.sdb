@@ -1,0 +1,115 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F877A ]
+[d frameptr 0 ]
+"63 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+[v _main main `(v  1 e 1 0 ]
+"112
+[v _ISR ISR `II(v  1 e 1 0 ]
+"129
+[v _init init `(v  1 e 1 0 ]
+"143
+[v _initSerial initSerial `(v  1 e 1 0 ]
+"181
+[v _LCDData LCDData `(v  1 e 1 0 ]
+"200
+[v _LCDPosition LCDPosition `(v  1 e 1 0 ]
+"211
+[v _sendSerial sendSerial `(v  1 e 1 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"45 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+[v _received received `uc  1 e 1 0 ]
+"46
+[v _recievedData recievedData `uc  1 e 1 0 ]
+"49
+[v _convInt convInt `[5]uc  1 e 5 0 ]
+"166 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"216
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+"340
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"402
+[v _PORTE PORTE `VEuc  1 e 1 @9 ]
+"454
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+"532
+[v _PIR1 PIR1 `VEuc  1 e 1 @12 ]
+"964
+[v _RCSTA RCSTA `VEuc  1 e 1 @24 ]
+"1059
+[v _TXREG TXREG `VEuc  1 e 1 @25 ]
+"1066
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
+"1325
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1375
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1437
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1499
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1561
+[v _TRISE TRISE `VEuc  1 e 1 @137 ]
+"1618
+[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
+"1999
+[v _TXSTA TXSTA `VEuc  1 e 1 @152 ]
+"2080
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"2743
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"3037
+[v _TXIF TXIF `VEb  1 e 0 @100 ]
+"63 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+[v _main main `(v  1 e 1 0 ]
+{
+"75
+[v main@sendDataLCD sendDataLCD `[32]uc  1 a 32 19 ]
+"74
+[v main@F880 F880 `[32]uc  1 s 32 F880 ]
+"110
+} 0
+"143
+[v _initSerial initSerial `(v  1 e 1 0 ]
+{
+[v initSerial@baudRate baudRate `ul  1 p 4 7 ]
+"158
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+{
+"10
+[v ___aldiv@quotient quotient `l  1 a 4 3 ]
+"11
+[v ___aldiv@sign sign `uc  1 a 1 2 ]
+[v ___aldiv@counter counter `uc  1 a 1 1 ]
+"5
+[v ___aldiv@divisor divisor `l  1 p 4 3 ]
+[v ___aldiv@dividend dividend `l  1 p 4 7 ]
+"41
+} 0
+"129 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\Board877ATrain.X\BoardTC.c
+[v _init init `(v  1 e 1 0 ]
+{
+"140
+} 0
+"112
+[v _ISR ISR `II(v  1 e 1 0 ]
+{
+"126
+} 0

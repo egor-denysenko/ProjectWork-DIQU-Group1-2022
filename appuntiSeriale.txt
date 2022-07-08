@@ -1,0 +1,116 @@
+MASTER--------------------
+		|  |			|  |
+		|  |			|  |
+		|  |			|  |
+	   SLAVE		   SLAVE
+	  
+MAX 485	  
+	  
+MODALITA' DI COMUNICAZIONE
+
+POLLING
+
+
+__
+RE SEMPRE A MASSA
+
+POTER AGGANCIARE LE SCHEDE UNA DOPO L'ALTRA
+
+
+RCIF VA A UNO QUANDO RICEVO IL DATO
+
+SE HO L'ENABLE ATTIVO FUNZIONA, ALTRIMENTI NO
+
+RCIE, PEIE E GIE A UNO PER FARE QUALCOSA CON L'INTERRUPT QUANDO MI ARRIVA IL DATO
+
+
+UNA VOLTA FATTO TUTTO QUELLO CHE DEVO FARE, ABBASSO LE IF
+
+
+DEFINIRE UN INTERVALLO TRA L'INVIO / RICEZIONE DI DATI
+
+void initSerial(unsigned long int);
+void sendSerial(char);
+void sendString(char *);
+char received;
+char data;
+
+void main(void) {
+	TRISD = 0x00;
+	initSerial(9600);
+	char i = 0;
+	while (1){
+		sendSerial(i++);
+		if (received)
+		{
+			received = 0;
+			PORTD = data;
+		}
+		__delay_ms(500);
+	}
+	return;
+}
+
+void initSerial(unsigned long int baudRate){
+	trisc &= ~0x40;
+	trisc |= 0x80;
+	
+	TXSTA = 0x20;
+	
+	RCSTA = 0x90;
+	
+	INTCON |= 0x80;
+	INTCON |= 0x40;
+	PIE1 |= 0x20; abilito rcie
+	
+	recieved = 0;
+	
+	SPBRG = (char) (_XTAL_FREQ/(long) (64UL*baudRate)) - 1;
+}
+
+void sendSerial(char data){
+	while(!(PIR1 & 0x10));
+	PIR1 &= ~0x10;
+	TXREG = data;
+}
+
+sendString(char str){
+	int i = 0;
+	while(str[i] != '\0')
+	{
+		sendSerial(str[i++]);
+	}
+}
+
+interrupt{
+	if(RCIF)
+	{
+		data = RCREG;
+		recived = 1;
+		RCIF = 0;
+	}
+}
+
+
+
+allarmi fotoresistenza, vedere il range di lavoro, a luce massima e a luce minima
+
+45950810
+
+ADCON0
+bit 7,6 (ADCS 1/0 + ADCS2 su ADCON1) seleziono la frequenza di clock per il convertitore
+per ottenere i valori analogici con il pic: adc con registro adcon0 bit da chs2 a chs0 config 000 (canale an0)
+bit 2 (ADGO), portandolo a 1 si avvia la conversione, resettato in automatico dall'hardware
+bit 1 nullo
+bit 0 (ADON) attivo il convertitore portandolo a 1
+
+ADCON1 -- settaggio porte analogiche
+bit 7 (ADFM) 10 bit che vengono salvati in due registri da 8, giustifica a SX o DX(ADRESH 1/ADRESL 0)
+bit 6 (ADCS2) vedi ADCON0
+bit 5,4 non usati
+bit 3,0 (PCFG3:PCFG0) definizione dei pin da usare come ingressi analogici
+
+----OTTENIMENTO VALORE ANALOGICO----
+	int valore;
+	valore = ADRESL + (ADRESH << 8);
+------------------------------------

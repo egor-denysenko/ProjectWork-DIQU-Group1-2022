@@ -1,0 +1,7 @@
+FROM vernemq/vernemq:1.12.3-alpine
+
+ENV DOCKER_VERNEMQ_ACCEPT_EULA=yes
+ENV DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on
+ENV DOCKER_VERNEMQ_LISTENER.tcp.allowed_protocol_versions="5"
+
+EXPOSE 1883/tcp
