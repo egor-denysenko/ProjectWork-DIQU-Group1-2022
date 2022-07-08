@@ -4,11 +4,13 @@ title: Gateway
 ---
 
 ## Receiving data
+Data are received via serial and are queued in a non-permanent local Redis queue.
 
-Data are received via serial and are queued in a non-permanent Redis queue.
+## Receiving data from Redis
+Gateway receives data from redis local queue and push them .n the topic to which you subscribe the cloud.
 
-## Sending data
+## Receiving command from Web App
+Gateway subscribes to another topic to receive commands.
 
-Then data are sent to the cloud via MQTT protocol.
-
-## Gallery
+## Send commands to the serial
+As the last thing the gateway send commands to the serial.

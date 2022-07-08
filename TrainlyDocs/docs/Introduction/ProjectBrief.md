@@ -38,9 +38,12 @@ During this phase we created the architecture of the project, talked about which
 ![](../../static/img/Trello.jpg)
 
 We used a Trello Kanban to manage and visualize all tasks we need to do to complete the project. Each time a task was completed it was moved to the "done" column.
+<<<<<<< HEAD
 
 ### Gantt Diagram
 
 [![](https://mermaid.ink/img/pako:eNqVk01r3DAQhv_KoPMavM4mC76VdRIKXcgXlIIvE2nWUSNLRpaSbkP-e8extU7C5lBdjDTPzLyvxnoR0ikSpWjQhlBb4BV0MARX3v0mGeCn849wOUSh0th4bEdKYaAL51sMAFWVbbfZL15jrOdE7SxUTsaWbMC_vKMx9q1ptPMWh3MH6gNRwvIky0-zIi-KBayWakrx8kEHCiF6hIYseTTMFvnMLotjbN-R1Dst8Sv4_7VceeoPDOy0fZOSr7J8PaFr9fESLrRvn9FTyncNq5vypWujZX3jrievR2fruXOxVscyle47g3v4salYKZs7S-Y-tb_kOT3j_nh3RXBDXKoEGIHv9km7YbYa0IA0LiqWs5zLr6byN1rSwQNapRM8hm-ftIld56B1KhoH_oDPJt9NpDjjsmNm-ib9m6Hs555vAhUag4MJTCZGbOMJDxjeYz_McjU3Sxf6zqvkRtvruzvoIx_vTPxT3ZezlrTEQrTEv7xW_GJehlgtwgO1VAtuLhT6x1rU9pW52A0P5Fzp4Lwod2h6WgiMwd3urRRl8JESND2riXr9Bw5RIM0)](https://mermaid.live/edit#pako:eNqVk01r3DAQhv_KoPMavM4mC76VdRIKXcgXlIIvE2nWUSNLRpaSbkP-e8extU7C5lBdjDTPzLyvxnoR0ikSpWjQhlBb4BV0MARX3v0mGeCn849wOUSh0th4bEdKYaAL51sMAFWVbbfZL15jrOdE7SxUTsaWbMC_vKMx9q1ptPMWh3MH6gNRwvIky0-zIi-KBayWakrx8kEHCiF6hIYseTTMFvnMLotjbN-R1Dst8Sv4_7VceeoPDOy0fZOSr7J8PaFr9fESLrRvn9FTyncNq5vypWujZX3jrievR2fruXOxVscyle47g3v4salYKZs7S-Y-tb_kOT3j_nh3RXBDXKoEGIHv9km7YbYa0IA0LiqWs5zLr6byN1rSwQNapRM8hm-ftIld56B1KhoH_oDPJt9NpDjjsmNm-ib9m6Hs555vAhUag4MJTCZGbOMJDxjeYz_McjU3Sxf6zqvkRtvruzvoIx_vTPxT3ZezlrTEQrTEv7xW_GJehlgtwgO1VAtuLhT6x1rU9pW52A0P5Fzp4Lwod2h6WgiMwd3urRRl8JESND2riXr9Bw5RIM0)
 
 We used a Gantt Diagram made with Mermaid js to organize and set deadlines of our tasks.
+=======
+>>>>>>> c80ebf1ad651d8275bc95682dddfdfd37c21585b
