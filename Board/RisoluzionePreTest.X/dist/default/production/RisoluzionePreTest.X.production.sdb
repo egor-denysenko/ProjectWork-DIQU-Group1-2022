@@ -1,0 +1,213 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F877A ]
+[d frameptr 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\Umul8.c
+[v ___bmul __bmul `(uc  1 e 1 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"45 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\RisoluzionePreTest.X\soluzioneMain.c
+[v _main main `(v  1 e 1 0 ]
+"65
+[v _initPic initPic `(v  1 e 1 0 ]
+"80
+[v _setTimer0 setTimer0 `(v  1 e 1 0 ]
+"87
+[v _UART_init UART_init `(v  1 e 1 0 ]
+"98
+[v _clearBuffer clearBuffer `(v  1 e 1 0 ]
+"107
+[v _decode decode `(v  1 e 1 0 ]
+"129
+[v _stampa stampa `(v  1 e 1 0 ]
+"142
+[v _ISR ISR `II(v  1 e 1 0 ]
+"59 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+[s S64 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+]
+"181
+[u S71 . 1 `S64 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES71  1 e 1 @5 ]
+"216
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+[s S83 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"233
+[u S92 . 1 `S83 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES92  1 e 1 @6 ]
+"340
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"454
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+"964
+[v _RCSTA RCSTA `VEuc  1 e 1 @24 ]
+"1066
+[v _RCREG RCREG `VEuc  1 e 1 @26 ]
+"1255
+[v _OPTION_REG OPTION_REG `VEuc  1 e 1 @129 ]
+"1325
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1375
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1437
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1499
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1561
+[v _TRISE TRISE `VEuc  1 e 1 @137 ]
+"1618
+[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
+"1999
+[v _TXSTA TXSTA `VEuc  1 e 1 @152 ]
+"2080
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"2743
+[v _RCIF RCIF `VEb  1 e 0 @101 ]
+"2851
+[v _T0IF T0IF `VEb  1 e 0 @90 ]
+"36 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\RisoluzionePreTest.X\soluzioneMain.c
+[v _disp disp `DC[17]uc  1 e 17 0 ]
+"39
+[v _timeCount timeCount `uc  1 e 1 0 ]
+"40
+[v _dataReceived dataReceived `[3]uc  1 e 3 0 ]
+"41
+[v _indexRC indexRC `uc  1 e 1 0 ]
+"42
+[v _isReceived isReceived `uc  1 e 1 0 ]
+"43
+[v _valore valore `uc  1 e 1 0 ]
+"45
+[v _main main `(v  1 e 1 0 ]
+{
+"62
+} 0
+"129
+[v _stampa stampa `(v  1 e 1 0 ]
+{
+[v stampa@val val `uc  1 a 1 wreg ]
+"132
+[v stampa@cifra cifra `uc  1 a 1 8 ]
+"131
+[v stampa@ledDaAccendere ledDaAccendere `uc  1 a 1 7 ]
+"129
+[v stampa@val val `uc  1 a 1 wreg ]
+"131
+[v stampa@val val `uc  1 a 1 9 ]
+"140
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"10
+[v ___awmod@sign sign `uc  1 a 1 1 ]
+[v ___awmod@counter counter `uc  1 a 1 0 ]
+"5
+[v ___awmod@divisor divisor `i  1 p 2 4 ]
+[v ___awmod@dividend dividend `i  1 p 2 6 ]
+"34
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"10
+[v ___awdiv@quotient quotient `i  1 a 2 2 ]
+"11
+[v ___awdiv@sign sign `uc  1 a 1 1 ]
+[v ___awdiv@counter counter `uc  1 a 1 0 ]
+"5
+[v ___awdiv@divisor divisor `i  1 p 2 4 ]
+[v ___awdiv@dividend dividend `i  1 p 2 6 ]
+"41
+} 0
+"65 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\RisoluzionePreTest.X\soluzioneMain.c
+[v _initPic initPic `(v  1 e 1 0 ]
+{
+"78
+} 0
+"80
+[v _setTimer0 setTimer0 `(v  1 e 1 0 ]
+{
+"85
+} 0
+"87
+[v _UART_init UART_init `(v  1 e 1 0 ]
+{
+[v UART_init@baudRate baudRate `l  1 p 4 8 ]
+"96
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"10
+[v ___lldiv@quotient quotient `ul  1 a 4 5 ]
+"11
+[v ___lldiv@counter counter `uc  1 a 1 9 ]
+"5
+[v ___lldiv@divisor divisor `ul  1 p 4 0 ]
+[v ___lldiv@dividend dividend `ul  1 p 4 4 ]
+"30
+} 0
+"107 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\RisoluzionePreTest.X\soluzioneMain.c
+[v _decode decode `(v  1 e 1 0 ]
+{
+"127
+} 0
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\Umul8.c
+[v ___bmul __bmul `(uc  1 e 1 0 ]
+{
+[v ___bmul@multiplier multiplier `uc  1 a 1 wreg ]
+"6
+[v ___bmul@product product `uc  1 a 1 6 ]
+"4
+[v ___bmul@multiplier multiplier `uc  1 a 1 wreg ]
+[v ___bmul@multiplicand multiplicand `uc  1 p 1 4 ]
+"6
+[v ___bmul@multiplier multiplier `uc  1 a 1 7 ]
+"51
+} 0
+"98 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\RisoluzionePreTest.X\soluzioneMain.c
+[v _clearBuffer clearBuffer `(v  1 e 1 0 ]
+{
+[v clearBuffer@buf buf `*.4uc  1 a 1 wreg ]
+"100
+[v clearBuffer@i i `uc  1 a 1 8 ]
+"98
+[v clearBuffer@buf buf `*.4uc  1 a 1 wreg ]
+[v clearBuffer@dim dim `uc  1 p 1 4 ]
+[v clearBuffer@index index `*.4uc  1 p 1 5 ]
+"100
+[v clearBuffer@buf buf `*.4uc  1 a 1 7 ]
+"105
+} 0
+"142
+[v _ISR ISR `II(v  1 e 1 0 ]
+{
+"165
+} 0

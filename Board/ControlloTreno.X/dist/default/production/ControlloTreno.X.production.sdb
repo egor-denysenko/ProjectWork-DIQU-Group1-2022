@@ -1,0 +1,140 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F877A ]
+[d frameptr 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"72 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\ControlloTreno.X\mainTrainControl.c
+[v _main main `(v  1 e 1 0 ]
+"129
+[v _LCDInit LCDInit `(v  1 e 1 0 ]
+"148
+[v _LCDData LCDData `(v  1 e 1 0 ]
+"166
+[v _initSerial initSerial `(v  1 e 1 0 ]
+"235
+[v _sendLCDString sendLCDString `(v  1 e 1 0 ]
+"243
+[v _init_ADC init_ADC `(v  1 e 1 0 ]
+"250
+[v _read_ADC read_ADC `(i  1 e 2 0 ]
+"166 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"216
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+"340
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"402
+[v _PORTE PORTE `VEuc  1 e 1 @9 ]
+"454
+[v _INTCON INTCON `VEuc  1 e 1 @11 ]
+"532
+[v _PIR1 PIR1 `VEuc  1 e 1 @12 ]
+"964
+[v _RCSTA RCSTA `VEuc  1 e 1 @24 ]
+"1059
+[v _TXREG TXREG `VEuc  1 e 1 @25 ]
+"1152
+[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
+"1159
+[v _ADCON0 ADCON0 `VEuc  1 e 1 @31 ]
+"1325
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1375
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1437
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1499
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1561
+[v _TRISE TRISE `VEuc  1 e 1 @137 ]
+"1618
+[v _PIE1 PIE1 `VEuc  1 e 1 @140 ]
+"1999
+[v _TXSTA TXSTA `VEuc  1 e 1 @152 ]
+"2080
+[v _SPBRG SPBRG `VEuc  1 e 1 @153 ]
+"2222
+[v _ADRESL ADRESL `VEuc  1 e 1 @158 ]
+"2229
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @159 ]
+"63 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\ControlloTreno.X\mainTrainControl.c
+[v _dataLCD dataLCD `[12]uc  1 e 12 0 ]
+"64
+[v _received received `uc  1 e 1 0 ]
+"65
+[v _c c `uc  1 e 1 0 ]
+"72
+[v _main main `(v  1 e 1 0 ]
+{
+"115
+} 0
+"235
+[v _sendLCDString sendLCDString `(v  1 e 1 0 ]
+{
+[v sendLCDString@string string `*.4uc  1 a 1 wreg ]
+"237
+[v sendLCDString@i i `uc  1 a 1 6 ]
+"235
+[v sendLCDString@string string `*.4uc  1 a 1 wreg ]
+"238
+[v sendLCDString@string string `*.4uc  1 a 1 5 ]
+"241
+} 0
+"250
+[v _read_ADC read_ADC `(i  1 e 2 0 ]
+{
+[v read_ADC@channel channel `uc  1 a 1 wreg ]
+[v read_ADC@channel channel `uc  1 a 1 wreg ]
+"252
+[v read_ADC@channel channel `uc  1 a 1 4 ]
+"259
+} 0
+"243
+[v _init_ADC init_ADC `(v  1 e 1 0 ]
+{
+"248
+} 0
+"166
+[v _initSerial initSerial `(v  1 e 1 0 ]
+{
+[v initSerial@baudRate baudRate `ul  1 p 4 6 ]
+"182
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c90\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+{
+"10
+[v ___aldiv@quotient quotient `l  1 a 4 2 ]
+"11
+[v ___aldiv@sign sign `uc  1 a 1 1 ]
+[v ___aldiv@counter counter `uc  1 a 1 0 ]
+"5
+[v ___aldiv@divisor divisor `l  1 p 4 0 ]
+[v ___aldiv@dividend dividend `l  1 p 4 4 ]
+"41
+} 0
+"129 C:\Users\Federico Foggiato\Desktop\PWAnno2\Board\ControlloTreno.X\mainTrainControl.c
+[v _LCDInit LCDInit `(v  1 e 1 0 ]
+{
+"146
+} 0
+"148
+[v _LCDData LCDData `(v  1 e 1 0 ]
+{
+[v LCDData@data data `uc  1 a 1 wreg ]
+[v LCDData@data data `uc  1 a 1 wreg ]
+[v LCDData@mode mode `uc  1 p 1 0 ]
+"150
+[v LCDData@data data `uc  1 a 1 3 ]
+"164
+} 0
