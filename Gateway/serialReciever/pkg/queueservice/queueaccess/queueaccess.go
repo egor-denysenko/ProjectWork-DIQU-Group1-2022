@@ -3,6 +3,7 @@ package queueaccess
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -19,7 +20,7 @@ func NewMessageQueue() *VagonMessageQueue {
 
 func (v *VagonMessageQueue) Connect() error {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     os.Getenv("RedisAddr"),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

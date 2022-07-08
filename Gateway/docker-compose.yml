@@ -11,12 +11,14 @@ services:
     restart: always
     volumes:
       - /dev:/dev
+    env_file:
+      - ./serialReciever/serial-receiver.env
     depends_on:
       - "redis"
     privileged: true
   serial-sender:
     build:
-      context: SerialSender
+      context: ./SerialSender
     restart: always
     volumes:
       - /dev:/dev
@@ -27,11 +29,15 @@ services:
     build:
       context: ./cloudSender
     restart: always
+    env_file:
+      - ./cloudSender/cloud-sender.env
     depends_on:
       - "redis"
   cloud-receiver:
     build:
       context: ./MqttReciever
     restart: always
+    env_file:
+      - ./MqttReciever/mqtt-receiver.env
     depends_on:
       - "redis"

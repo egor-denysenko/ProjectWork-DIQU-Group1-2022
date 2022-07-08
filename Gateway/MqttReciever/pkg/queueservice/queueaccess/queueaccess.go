@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+	"os"
 )
 
 type VagonMessageQueue struct {
@@ -26,7 +27,7 @@ func (v *VagonMessageQueue) Enqueue(ctx context.Context, key string, message []b
 
 func (v *VagonMessageQueue) Connect() error {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     os.Getenv("RedisAddr"),
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
