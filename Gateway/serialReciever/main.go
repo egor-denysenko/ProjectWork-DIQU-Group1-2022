@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 	"serialReciever/pkg/protocolParser"
 	"serialReciever/pkg/queueservice"
 	serialService "serialReciever/pkg/serialservice"
@@ -36,7 +37,7 @@ func main() {
 }
 
 func RecieverInit() *serialService.SerialService {
-	return serialService.ServiceServiceFactory("/dev/Uart485DongleFake1")
+	return serialService.ServiceServiceFactory(os.Getenv("SerialPortToListen"))
 }
 
 func QueueInit() *queueservice.QueueService {

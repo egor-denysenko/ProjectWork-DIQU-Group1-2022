@@ -9,13 +9,26 @@
   "scripts": {
     "test": "tap \"test/**/*.test.js\"",
     "start": "fastify start -l info app.js",
+<<<<<<< HEAD
+    "dev": " fastify start -w -l info -P app.js"
+=======
     "dev": "npx prettier --write . && fastify start -w -l info -P app.js"
+>>>>>>> c80ebf1ad651d8275bc95682dddfdfd37c21585b
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@fastify/autoload": "^5.0.0",
+<<<<<<< HEAD
+    "@fastify/sensible": "^4.1.0",
+    "@influxdata/influxdb-client": "^1.27.0",
+    "fastify": "^4.0.0",
+    "fastify-cli": "^4.1.1",
+    "fastify-plugin": "^3.0.0",
+    "json": "^11.0.0",
+    "mqtt": "^4.3.7",
+=======
     "@fastify/cors": "^8.0.0",
     "@fastify/sensible": "^4.1.0",
     "@influxdata/influxdb-client": "^1.27.0",
@@ -29,6 +42,7 @@
     "jsonwebtoken": "^8.5.1",
     "mqtt": "^4.3.7",
     "pg-promise": "^10.11.1",
+>>>>>>> c80ebf1ad651d8275bc95682dddfdfd37c21585b
     "update": "^0.7.4",
     "upgrade": "^1.1.0"
   },

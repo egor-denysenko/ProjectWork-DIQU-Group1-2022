@@ -6,6 +6,7 @@ import (
 	serialService "SerialSender/pkg/serialservice"
 	"context"
 	"log"
+	"os"
 	"time"
 )
 
@@ -38,7 +39,7 @@ func main() {
 }
 
 func RecieverInit() *serialService.SerialService {
-	return serialService.ServiceServiceFactory("/dev/Uart485DongleFake2")
+	return serialService.ServiceServiceFactory(os.Getenv("SerialPortToListen"))
 }
 
 func QueueInit() *queueservice.QueueService {

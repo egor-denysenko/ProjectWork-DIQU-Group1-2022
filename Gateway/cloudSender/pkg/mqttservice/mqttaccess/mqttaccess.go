@@ -5,6 +5,7 @@ import (
 	mqtt "github.com/eclipse/paho.golang/paho"
 	"log"
 	"net"
+	"os"
 )
 
 type MqttClient struct {
@@ -13,7 +14,7 @@ type MqttClient struct {
 }
 
 func NewMqttConnection() *MqttClient {
-	serverUrl := "20.238.251.167:1883"
+	serverUrl := os.Getenv("MqttBrokerAdd")
 	// Try to reach the Broker and connects to it
 	/*brokerDial, err := tls.Dial("tcp", serverUrl, &tls.Config{
 		InsecureSkipVerify: true,

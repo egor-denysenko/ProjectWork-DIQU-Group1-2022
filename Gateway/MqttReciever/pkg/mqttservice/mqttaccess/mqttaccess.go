@@ -5,6 +5,7 @@ import (
 	mqtt "github.com/eclipse/paho.golang/paho"
 	"log"
 	"net"
+	"os"
 )
 
 type BrokerSubscriptions *mqtt.Subscribe
@@ -15,7 +16,7 @@ type MqttClient struct {
 }
 
 func NewMqttConnection(mqttSubChan chan<- []byte) *MqttClient {
-	serverUrl := "20.238.251.167:1883"
+	serverUrl := os.Getenv("MqttBrokerAdd")
 	// Try to reach the Broker and connects to it
 	brokerDial, err := net.Dial("tcp4", serverUrl)
 	// manage the connection error from the Dial

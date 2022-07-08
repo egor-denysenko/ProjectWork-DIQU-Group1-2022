@@ -1,0 +1,67 @@
+<div
+  style="
+  background: rgba(19, 38, 139, 1.0);
+  background: -webkit-linear-gradient(bottom, rgba(19, 38, 139, 1.0), rgba(164, 115, 227, 1.0));
+  background: -moz-linear-gradient(bottom, rgba(19, 38, 139, 1.0), rgba(164, 115, 227, 1.0));
+  background: linear-gradient(to top, rgba(19, 38, 139, 1.0), rgba(164, 115, 227, 1.0));
+  "
+  class="flex items-stretch min-h-screen"
+>
+  <div class="items-center justify-center flex flex-wrap">
+    <nav
+      class="flex flex-wrap items-center justify-between w-full py-4 md:py-0 px-4 text-lg text-gray-700 bg-white"
+    >
+      <div>
+        <div
+          class="hidden w-full md:flex md:items-center md:w-auto"
+          id="menu"
+          [routerLink]="['/']"
+        >
+          <ul
+            class="pt-4 text-base text-gray-700 md:flex md:justify-between md:pt-0"
+          >
+            <li>
+              <a class="md:p-4 py-2 block hover:text-purple-400" href="#"
+                >Pick Train</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+      <temperature-line-chart></temperature-line-chart>
+    </div>
+    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+      <humidity-line-chart></humidity-line-chart>
+    </div>
+    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+      <form class="w-full max-w-sm" [formGroup]="tempForm">
+        <div class="flex items-center border-b border-teal-500 py-2">
+          <input
+            formControlName="tempValue"
+            class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="text"
+            placeholder="Temperature Celsius"
+            aria-label="Full name"
+          />
+          <button
+            (click)="sendDesideredTemp()"
+            [disabled]="tempForm.value.tempValue === null"
+            class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+            type="button"
+          >
+            Send Temperature Message
+          </button>
+        </div>
+      </form>
+      <button
+        (click)="setLights()"
+        class="w-full max-w-sm rounded border-4 text-white bg-teal-500"
+        type="button"
+      >
+        Turn Lights On
+      </button>
+    </div>
+  </div>
+</div>
