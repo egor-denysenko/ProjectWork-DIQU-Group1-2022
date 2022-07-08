@@ -23,11 +23,11 @@ export class CardTableComponent implements OnInit {
     { TrainID: 6, TransportType: "Civil", TrainStatus: "In Transit" },
     { TrainID: 7, TransportType: "Cargo", TrainStatus: "Stopped" },
   ];
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
-  viewTrainData(trainID:number){
-    console.log("ecco dati")
-    this.router.navigate(['TrainData',trainID]);
+  viewTrainData(trainID: number) {
+    console.log("ecco dati");
+    this.router.navigate(["TrainData", trainID]);
   }
 }

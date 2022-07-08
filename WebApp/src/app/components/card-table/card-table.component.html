@@ -62,7 +62,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of list" >
+        <tr *ngFor="let item of list">
           <th
             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
           >
@@ -88,7 +88,8 @@
           >
             <button
               class="rounded bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-              type="button"(click)="viewTrainData(item.TrainID)"
+              type="button"
+              (click)="viewTrainData(item.TrainID)"
             >
               More Info
             </button>

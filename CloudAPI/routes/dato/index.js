@@ -1,9 +1,10 @@
-'use strict'
+"use strict";
 
 module.exports = async function (fastify, opts) {
   fastify.get("/", {
     tags: ["Dati"],
-    description: "Get data about temperature, humidity, door closing status and toilette occupancy.",
+    description:
+      "Get data about temperature, humidity, door closing status and toilette occupancy.",
     response: {
       200: {
         type: "array",
@@ -28,13 +29,13 @@ module.exports = async function (fastify, opts) {
             Humidity: { type: "number" },
             Temperature: { type: "number" },
             LightMode: { type: "boolean" },
-            LightOn: { type: "boolean" }
+            LightOn: { type: "boolean" },
           },
         },
       },
     },
     handler: async function (request, reply) {
-      fastify.chiamainf()      
+      fastify.chiamainf();
     },
   });
-}
+};

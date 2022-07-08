@@ -8,5 +8,4 @@ export class TrainListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
 }

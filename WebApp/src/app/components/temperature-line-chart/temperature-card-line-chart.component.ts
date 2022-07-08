@@ -3,7 +3,7 @@ import Chart from "chart.js";
 import { ApiService } from "src/services/api.service";
 
 interface Data {
-  timestamp: string,
+  timestamp: string;
   value: string;
   item: number;
 }
@@ -12,37 +12,37 @@ interface Data {
   templateUrl: "./temperature-card-line-chart.component.html",
 })
 export class TemperatureLineChartComponent implements OnInit {
-  dato: Array<Data>
-  constructor(private api:ApiService) {}
-  ngOnInit(): void {
-
-  }
+  dato: Array<Data>;
+  constructor(private api: ApiService) {}
+  ngOnInit(): void {}
   ngAfterViewInit() {
-    this.api.get("/dato").subscribe((data)=>{
-      let newArray = data.filter(item=>
-      {
+    this.api.get("/dato").subscribe((data) => {
+      let newArray = data.filter((item) => {
         return item._field === "temperature";
       });
 
-      this.dato = newArray.map(i=>
-        {
-        return {timestamp:i._time,item: i._field,value:i._value};
+      this.dato = newArray.map((i) => {
+        return { timestamp: i._time, item: i._field, value: i._value };
       });
-      console.log(this.dato)
-      this.buildGraph()
-    })
+      console.log(this.dato);
+      this.buildGraph();
+    });
   }
   buildGraph() {
     var config = {
       type: "line",
       data: {
-        labels: this.dato.map(i => {return i.timestamp}),
+        labels: this.dato.map((i) => {
+          return i.timestamp;
+        }),
         datasets: [
           {
             label: new Date().getFullYear(),
             backgroundColor: "#4c51bf",
             borderColor: "#4c51bf",
-            data: this.dato.map(i => {return i.value}),
+            data: this.dato.map((i) => {
+              return i.value;
+            }),
             fill: false,
           },
         ],

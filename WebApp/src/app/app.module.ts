@@ -5,13 +5,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./views/login/login.component";
 import { RegisterComponent } from "./views/register/register.component";
-import { AuthComponent } from './layouts/auth/auth.component';
+import { AuthComponent } from "./layouts/auth/auth.component";
 import { FooterSmallComponent } from "./components/footer-small/footer-small.component";
 import { AuthNavbarComponent } from "./components/auth-navbar/auth-navbar.component";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from "@angular/common/http";
 
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TrainListComponent } from "./views/train-list/train-list.component";
 import { CardTableComponent } from "./components/card-table/card-table.component";
 import { AuthService } from "src/services/auth.service";
@@ -20,8 +19,26 @@ import { HumidityLineChartComponent } from "./components/humidity-line-chart/hum
 import { DashboardComponent } from "./views/dashboard/dashboard.component";
 
 @NgModule({
-  declarations: [LoginComponent,RegisterComponent,AppComponent, AuthComponent,FooterSmallComponent,AuthNavbarComponent,TrainListComponent,CardTableComponent,TemperatureLineChartComponent,HumidityLineChartComponent,DashboardComponent],
-  imports: [BrowserModule, AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule],
+  declarations: [
+    LoginComponent,
+    RegisterComponent,
+    AppComponent,
+    AuthComponent,
+    FooterSmallComponent,
+    AuthNavbarComponent,
+    TrainListComponent,
+    CardTableComponent,
+    TemperatureLineChartComponent,
+    HumidityLineChartComponent,
+    DashboardComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [AuthService],
   bootstrap: [AppComponent],
 })

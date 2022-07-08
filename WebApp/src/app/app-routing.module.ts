@@ -7,22 +7,19 @@ import { LoginComponent } from "./views/login/login.component";
 import { RegisterComponent } from "./views/register/register.component";
 import { TrainListComponent } from "./views/train-list/train-list.component";
 
-
 const routes: Routes = [
   {
-    path:'dashboard',
+    path: "",
     component: TrainListComponent,
   },
-  {path:'TrainData/:id',
-component:DashboardComponent,
-},
+  { path: "TrainData/:id", component: DashboardComponent },
   // auth views
   {
     path: "auth",
     component: AuthComponent,
     children: [
-      { path: "login", component:LoginComponent},
-      { path: "register", component:RegisterComponent},
+      { path: "login", component: LoginComponent },
+      { path: "register", component: RegisterComponent },
       { path: "", redirectTo: "login", pathMatch: "full" },
       { path: "**", redirectTo: "", pathMatch: "full" },
     ],
@@ -33,5 +30,4 @@ component:DashboardComponent,
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-
 export class AppRoutingModule {}

@@ -5,7 +5,7 @@ const fp = require("fastify-plugin");
 const { InfluxDB } = require("@influxdata/influxdb-client");
 
 module.exports = fp(async function (fastify, opts) {
-	/*function ConnectToInflux() {
+  /*function ConnectToInflux() {
 		console.log("sto provando");
 		//API token
 		const url =
@@ -18,7 +18,7 @@ module.exports = fp(async function (fastify, opts) {
 		const client = new InfluxDB({ url, token: token }).getQueryApi(org);
 		return client;
 	}*/
-	//fastify.decorate("chiamainf", ConnectToInflux);
+  //fastify.decorate("chiamainf", ConnectToInflux);
 });
 
 /*const queryApi = client.getQueryApi(org)

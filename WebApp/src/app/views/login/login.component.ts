@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "src/services/api.service";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "src/services/auth.service";
 import { Router } from "@angular/router";
 @Component({
@@ -8,18 +8,26 @@ import { Router } from "@angular/router";
   templateUrl: "./login.component.html",
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup
-  constructor(private api:ApiService,private formBuilder: FormBuilder,private auth:AuthService,private router:Router) {
+  loginForm: FormGroup;
+  constructor(
+    private api: ApiService,
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.formBuilder.group({
-      email: [null,[Validators.required,Validators.email,Validators.minLength(8)]],
+      email: [
+        null,
+        [Validators.required, Validators.email, Validators.minLength(8)],
+      ],
       password: [null, [Validators.required]],
     });
   }
-  formData: any
+  formData: any;
   ngOnInit(): void {
     if (this.checkIfTheUserIsAlreadySignupped) {
-      console.log('non torni true?');
-      this.router.navigateByUrl('/dashboard/TrainData/1');
+      console.log("non torni true?");
+      this.router.navigateByUrl("/dashboard/TrainData/1");
     }
   }
 
@@ -31,7 +39,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  SubmitLogin(){
-    this.auth.login(this.loginForm.get('email').value,this.loginForm.get('password').value)
+  SubmitLogin() {
+    this.auth.login(
+      this.loginForm.get("email").value,
+      this.loginForm.get("password").value
+    );
   }
 }
