@@ -30,7 +30,7 @@ module.exports = async function (fastify, opts) {
       try {
         delete request.body["TrainId"];
         fastify.SendToTopic(TrainId, request.body.toString());
-        console.log("mando temp")
+        console.log("mando temp");
         return true;
       } catch (err) {
         console.log(err);
