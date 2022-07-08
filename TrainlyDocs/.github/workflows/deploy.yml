@@ -2,10 +2,10 @@ name: Deploy Docs To GitHub Pages
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
     paths: [ProjectWork-DIQU-Group1-2022/**]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
     paths: [ProjectWork-DIQU-Group1-2022/**]
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
