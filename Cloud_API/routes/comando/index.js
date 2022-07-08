@@ -28,13 +28,9 @@ module.exports = async function (fastify, opts) {
       const { TrainId } = request.body;
 
       try {
-        //mqttClient = fastify.ConnectToBroker()
         delete request.body["TrainId"];
-        //console.log(request.body)
-        //const jsonData = JSON.parse(request.body.toString())
-
-        //console.log(jsonData)
         fastify.SendToTopic(TrainId, request.body.toString());
+        console.log("mando temp")
         return true;
       } catch (err) {
         console.log(err);
@@ -69,11 +65,8 @@ module.exports = async function (fastify, opts) {
     handler: async function (request, reply) {
       const { TrainId } = request.body;
       try {
-        // mqttClient = fastify.ConnectToBroker()
         delete request.body["TrainId"];
-        const jsonData = JSON.parse(request.body.toString());
-        console.log(jsonData);
-        fastify.SendToTopic(TrainId, jsonData);
+        fastify.SendToTopic(TrainId, request.body.toString());
         return true;
       } catch (err) {
         console.log(err);

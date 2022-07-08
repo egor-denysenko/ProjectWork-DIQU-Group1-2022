@@ -16,7 +16,7 @@ module.exports = async function (fastify, opts) {
       },
     },
     handler: async function (request, reply) {
-      console.log("ti ritorno dato")
+      console.log("ti ritorno dato");
       return await fastify.query();
     },
   });
