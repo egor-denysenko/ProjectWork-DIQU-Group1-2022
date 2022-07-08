@@ -38,3 +38,6 @@ The node.js application receives the data and sends it to InfluxDB to storage it
 We created a node.js web app that receives data from InfluxDB and shows them in a web interface; the aim of this web app is to send commands to the gateway that sends in turns to the microcontroller that modify the value of temperaturea and the status of the doors (open/close).
 
 ## Gallery
+This is the InfluxDB data interface.
+
+![](../../static/img/influx.jpg)

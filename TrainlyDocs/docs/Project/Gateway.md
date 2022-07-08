@@ -14,5 +14,3 @@ Gateway subscribes to another topic to receive commands.
 
 ## Send commands to the serial
 As the last thing the gateway send commands to the serial.
-
-## Gallery
