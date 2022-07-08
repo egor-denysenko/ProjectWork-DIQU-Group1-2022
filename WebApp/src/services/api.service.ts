@@ -7,7 +7,7 @@ export class ApiService {
   private root: string;
   private port: string;
   constructor(private http: HttpClient) {
-    this.root = "http://localhost";
+    this.root = "http://20.23.39.128";
     this.port = ":5555";
   }
 

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "notus-angular": {
+    "trainlyfront": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": ["chart.js"],
-            "outputPath": "dist/notus-angular",
+            "outputPath": "dist/trainlyfront",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "notus-angular:build"
+            "browserTarget": "trainlyfront:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "notus-angular:build:production"
+              "browserTarget": "trainlyfront:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "notus-angular:build"
+            "browserTarget": "trainlyfront:build"
           }
         },
         "test": {
@@ -104,16 +104,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "notus-angular:serve"
+            "devServerTarget": "trainlyfront:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "notus-angular:serve:production"
+              "devServerTarget": "trainlyfront:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "notus-angular"
+  "defaultProject": "trainlyfront"
 }

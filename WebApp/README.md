@@ -1,8 +1,8 @@
-# Notus Angular <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-angular%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20Angular%20UI%20Kit%20and%20Admin.%20Let%20Notus%20Angular%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level." target="_blank">![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)</a>
+# Notus Angular <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Ftrainlyfront%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20Angular%20UI%20Kit%20and%20Admin.%20Let%20Notus%20Angular%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level." target="_blank">![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)</a>
 
-![version](https://img.shields.io/badge/version-1.1.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) <a href="https://github.com/creativetimofficial/notus-angular/issues?q=is%3Aopen+is%3Aissue" target="_blank">![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/notus-angular.svg)</a> <a href="https://github.com/creativetimofficial/notus-angular/issues?q=is%3Aissue+is%3Aclosed" target="_blank">![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/notus-angular.svg)</a> <a href="https://gitter.im/creative-tim-general/Lobby" target="_blank">![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)</a> <a href="https://discord.gg/E4aHAQy" target="_blank">![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)</a>
+![version](https://img.shields.io/badge/version-1.1.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) <a href="https://github.com/creativetimofficial/trainlyfront/issues?q=is%3Aopen+is%3Aissue" target="_blank">![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/trainlyfront.svg)</a> <a href="https://github.com/creativetimofficial/trainlyfront/issues?q=is%3Aissue+is%3Aclosed" target="_blank">![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/trainlyfront.svg)</a> <a href="https://gitter.im/creative-tim-general/Lobby" target="_blank">![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)</a> <a href="https://discord.gg/E4aHAQy" target="_blank">![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)</a>
 
-![Notus Angular](https://github.com/creativetimofficial/public-assets/blob/master/notus-angular/notus-angular.jpg?raw=true)
+![Notus Angular](https://github.com/creativetimofficial/public-assets/blob/master/trainlyfront/trainlyfront.jpg?raw=true)
 
 ### A beautiful UI Kit and Admin for Tailwind CSS and Angular.
 
@@ -37,18 +37,18 @@ to quickly set up the basic structure for your web project.
 
 Here are all the page from the project:
 
-- [Presentation](https://demos.creative-tim.com/notus-angular/?ref=na-github-readme)
+- [Presentation](https://demos.creative-tim.com/trainlyfront/?ref=na-github-readme)
 - Admin Samples
-  - [Dashboard](https://demos.creative-tim.com/notus-angular/admin/dashboard?ref=na-github-readme)
-  - [Settings](https://demos.creative-tim.com/notus-angular/admin/settings?ref=na-github-readme)
-  - [Tables](https://demos.creative-tim.com/notus-angular/admin/tables?ref=na-github-readme)
-  - [Maps](https://demos.creative-tim.com/notus-angular/admin/maps?ref=na-github-readme)
+  - [Dashboard](https://demos.creative-tim.com/trainlyfront/admin/dashboard?ref=na-github-readme)
+  - [Settings](https://demos.creative-tim.com/trainlyfront/admin/settings?ref=na-github-readme)
+  - [Tables](https://demos.creative-tim.com/trainlyfront/admin/tables?ref=na-github-readme)
+  - [Maps](https://demos.creative-tim.com/trainlyfront/admin/maps?ref=na-github-readme)
 - Authentication Samples
-  - [Login](https://demos.creative-tim.com/notus-angular/auth/login?ref=na-github-readme)
-  - [Register](https://demos.creative-tim.com/notus-angular/auth/register?ref=na-github-readme)
+  - [Login](https://demos.creative-tim.com/trainlyfront/auth/login?ref=na-github-readme)
+  - [Register](https://demos.creative-tim.com/trainlyfront/auth/register?ref=na-github-readme)
 - Presentation Samples
-  - [Landing](https://demos.creative-tim.com/notus-angular/landing?ref=na-github-readme)
-  - [Profile](https://demos.creative-tim.com/notus-angular/profile?ref=na-github-readme)
+  - [Landing](https://demos.creative-tim.com/trainlyfront/landing?ref=na-github-readme)
+  - [Profile](https://demos.creative-tim.com/trainlyfront/profile?ref=na-github-readme)
 
 ### Fully Coded Components
 
@@ -92,11 +92,11 @@ We also feature the following 18 dynamic components:
 
 ## Versions
 
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-angular?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/js.png?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-js?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/nextjs.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-nextjs?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-react?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/svelte.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-svelte?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/vue.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/vue-notus?ref=na-github-readme)
+[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/trainlyfront?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/js.png?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-js?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/nextjs.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-nextjs?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-react?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/svelte.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-svelte?ref=na-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/vue.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/vue-notus?ref=na-github-readme)
 
 |                                                                                                Angular                                                                                                 |                                                                                 JavaScript / HTML                                                                                  |                                                                                               NextJS                                                                                               |                                                                                             React                                                                                              |                                                                                               Svelte                                                                                               |                                                                                         VueJS                                                                                          |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [![Notus Angular](https://github.com/creativetimofficial/public-assets/blob/master/notus-angular/notus-angular.jpg?raw=true)](https://www.creative-tim.com/product/notus-angular?ref=na-github-readme) | [![Notus JS](https://github.com/creativetimofficial/public-assets/blob/master/notus-js/notus-js.jpg?raw=true)](https://www.creative-tim.com/product/notus-js?ref=na-github-readme) | [![Notus NextJS](https://github.com/creativetimofficial/public-assets/blob/master/notus-nextjs/notus-nextjs.jpg?raw=true)](https://www.creative-tim.com/product/notus-nextjs?ref=na-github-readme) | [![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true)](https://www.creative-tim.com/product/notus-react?ref=na-github-readme) | [![Notus Svelte](https://github.com/creativetimofficial/public-assets/blob/master/notus-svelte/notus-svelte.jpg?raw=true)](https://www.creative-tim.com/product/notus-svelte?ref=na-github-readme) | [![Vue Notus](https://github.com/creativetimofficial/public-assets/blob/master/vue-notus/vue-notus.jpg?raw=true)](https://www.creative-tim.com/product/vue-notus?ref=na-github-readme) |
+| [![Notus Angular](https://github.com/creativetimofficial/public-assets/blob/master/trainlyfront/trainlyfront.jpg?raw=true)](https://www.creative-tim.com/product/trainlyfront?ref=na-github-readme) | [![Notus JS](https://github.com/creativetimofficial/public-assets/blob/master/notus-js/notus-js.jpg?raw=true)](https://www.creative-tim.com/product/notus-js?ref=na-github-readme) | [![Notus NextJS](https://github.com/creativetimofficial/public-assets/blob/master/notus-nextjs/notus-nextjs.jpg?raw=true)](https://www.creative-tim.com/product/notus-nextjs?ref=na-github-readme) | [![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true)](https://www.creative-tim.com/product/notus-react?ref=na-github-readme) | [![Notus Svelte](https://github.com/creativetimofficial/public-assets/blob/master/notus-svelte/notus-svelte.jpg?raw=true)](https://www.creative-tim.com/product/notus-svelte?ref=na-github-readme) | [![Vue Notus](https://github.com/creativetimofficial/public-assets/blob/master/vue-notus/vue-notus.jpg?raw=true)](https://www.creative-tim.com/product/vue-notus?ref=na-github-readme) |
 
 ## Documentation
 
@@ -104,15 +104,15 @@ The documentation for the Notus Angular is hosted at our <a href="https://www.cr
 
 ## Quick start
 
-- <a href="https://www.creative-tim.com/product/notus-angular?ref=na-github-readme" target="_blank">Download from Creative Tim</a>.
-- <a href="https://github.com/creativetimofficial/notus-angular" target="_blank">Check it on Github</a>.
+- <a href="https://www.creative-tim.com/product/trainlyfront?ref=na-github-readme" target="_blank">Download from Creative Tim</a>.
+- <a href="https://github.com/creativetimofficial/trainlyfront" target="_blank">Check it on Github</a>.
 
 ## Files and Folder
 
 This is the project structure that you will get upon the download:
 
 ```
-notus-angular
+trainlyfront
 .
 ├── CHANGELOG.md
 ├── ISSUE_TEMPLATE.md
@@ -287,7 +287,7 @@ We use GitHub Issues as the official bug tracker for the Notus Angular. Here are
 
 - Copyright 2021 <a href="https://www.creative-tim.com/?ref=na-readme" target="_blank">Creative Tim</a>
 
-- Licensed under <a href="https://github.com/creativetimofficial/notus-angular/blob/main/LICENSE.md" target="_blank">MIT</a>
+- Licensed under <a href="https://github.com/creativetimofficial/trainlyfront/blob/main/LICENSE.md" target="_blank">MIT</a>
 
 ## Useful Links
 
@@ -316,9 +316,9 @@ Instagram: <a href="https://www.instagram.com/creativetimofficial/" target="_bla
 
 ## Resources
 
-- Demo: <a href="https://demos.creative-tim.com/notus-angular/?ref=na-readme" target="_blank">https://demos.creative-tim.com/notus-angular/?ref=na-readme</a>
-- Download Page: <a href="https://www.creative-tim.com/product/notus-angular?ref=na-github-readme" target="_blank">https://www.creative-tim.com/product/notus-angular</a>
+- Demo: <a href="https://demos.creative-tim.com/trainlyfront/?ref=na-readme" target="_blank">https://demos.creative-tim.com/trainlyfront/?ref=na-readme</a>
+- Download Page: <a href="https://www.creative-tim.com/product/trainlyfront?ref=na-github-readme" target="_blank">https://www.creative-tim.com/product/trainlyfront</a>
 - Documentation: <a href="https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus?ref=na-readme" target="_blank">https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus?ref=na-readme</a>
 - License Agreement: <a href="https://www.creative-tim.com/license?ref=na-readme" target="_blank">https://www.creative-tim.com/license?ref=na-readme</a>
 - Support: <a href="https://www.creative-tim.com/contact-us?ref=na-readme" target="_blank">https://www.creative-tim.com/contact-us?ref=na-readme</a>
-- Issues: <a href="https://github.com/creativetimofficial/notus-angular/issues" target="_blank">Github Issues Page</a>
+- Issues: <a href="https://github.com/creativetimofficial/trainlyfront/issues" target="_blank">Github Issues Page</a>
